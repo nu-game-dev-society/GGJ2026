@@ -35,4 +35,36 @@ public class PlayerHealthController : MonoBehaviour, IHealth
         Health -= damage;
         LastHitReceivedTime = Time.time;
     }
+
+    public void Heal(float amount)
+    {
+        Health = Mathf.Min(Health + amount, MaxHealth);
+    }
+
+    public void SetHealthProperties(float? maxHealth = null, float? regenRate = null, float? regenWaitTime = null)
+    {
+        float healthPercentage = Health / MaxHealth;
+        if(maxHealth != null)
+            MaxHealth = maxHealth.Value;
+        if(regenRate != null)
+            RegenRate = regenRate.Value;
+        if(regenWaitTime != null)
+            RegenTime = regenRate.Value;
+        Health = MaxHealth * healthPercentage;
+    }
+
+    public float GetCurrentHealth()
+    {
+        return Health;
+    }
+
+    public float GetMaxHealth()
+    {
+        return MaxHealth;
+    }
+
+    public bool IsAlive()
+    {
+        return Health > 0;
+    }
 }

@@ -23,6 +23,7 @@ public class AttackController : MonoBehaviour
     [SerializeField] private bool showDebugGizmos = true;
 
     private float lastAttackTime = -999f;
+    private float damageModifier = 1f;
 
     private void Awake()
     {
@@ -40,6 +41,11 @@ public class AttackController : MonoBehaviour
     public bool CanAttack()
     {
         return Time.time >= lastAttackTime + attackCooldown;
+    }
+
+    public void SetDamageModifier(float modifier)
+    {
+        damageModifier = Mathf.Max(0, modifier);
     }
     [ContextMenu("Attack")]
     public void PerformAttack()
@@ -101,7 +107,8 @@ public class AttackController : MonoBehaviour
         var healthComponent = target.GetComponent<IHealth>();
         if (healthComponent != null)
         {
-            healthComponent.TakeDamage(attackDamage);
+            float finalDamage = attackDamage * damageModifier;
+            healthComponent.TakeDamage(finalDamage);
         }
 
     }
@@ -154,10 +161,4 @@ public class AttackController : MonoBehaviour
             previousPoint = point;
         }
     }
-}
-
-// Interface for health system (create this if you don't have a health system yet)
-public interface IHealth
-{
-    void TakeDamage(float damage);
 }
