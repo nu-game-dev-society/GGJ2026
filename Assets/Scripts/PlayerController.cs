@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         inputActions = new InputSystem_Actions();
     }
-
+ 
     private void OnEnable()
     {
         inputActions.Player.Enable();
