@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -11,22 +12,32 @@ public class MaskSpawner : MonoBehaviour
     private Vector2 end;
 
     [SerializeField]
-    private GameObject[] maskPrefabs;
-
-    [SerializeField]
     private LayerMask spawningLayerMask;
 
     [SerializeField]
     [Range(0f, 2f)]
     private float spawnSpaceRadius = 0.75f;
 
+    [SerializeField]
+    [Range(1, 30)]
+    private int spawnTime = 5;
+
+    [SerializeField]
+    [Range(1, 30)]
+    private int maxSpawnCount = 4;
+
+    [SerializeField]
+    private GameObject[] maskPrefabs;
+
     private Vector3 lastSpawn;
     private Vector3 lastHit;
+
+    private List<GameObject> spawnedMasks = new();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        StartCoroutine(TestSpawning());
+        StartCoroutine(DoSpawning());
     }
 
     // Update is called once per frame
@@ -35,13 +46,22 @@ public class MaskSpawner : MonoBehaviour
         
     }
 
-    private IEnumerator TestSpawning()
+    private IEnumerator DoSpawning()
     {
         while (true)
         {
-            yield return new WaitForSeconds(1);
-            SpawnMask();
+            yield return new WaitForSeconds(spawnTime);
+            if (CanSpawnMask()) SpawnMask();
         }
+    }
+
+    private bool CanSpawnMask()
+    {
+        // Remove any old destroyed masks from the list
+        spawnedMasks.RemoveAll(item => item == null);
+
+        // Make sure we are under the max spawn count
+        return spawnedMasks.Count <= maxSpawnCount;
     }
 
     private void SpawnMask()
@@ -73,11 +93,16 @@ public class MaskSpawner : MonoBehaviour
                 return;
             }
 
+            // Store last spawn and hit positions for gizmos
             lastSpawn = spawnPos;
             lastHit = hitPos;
 
+            // Instantiate mask at hit position
             GameObject mask = GameObject.Instantiate(maskPrefabs[Random.Range(0, maskPrefabs.Length)]);
             mask.transform.position = lastHit;
+
+            // Add to spawned masks list
+            spawnedMasks.Add(mask);
         }
         else
         {
@@ -90,9 +115,11 @@ public class MaskSpawner : MonoBehaviour
         Gizmos.color = Color.green;
         Rect rect = new Rect(start, end - start);
 
+        // Draw spawning area
         Gizmos.DrawWireCube(transform.position + new Vector3(rect.center.x, 0, rect.center.y), new Vector3(rect.size.x, 0.01f, rect.size.y));
 
-        if (lastSpawn != null && lastHit != null)
+        // Draw last spawn and hit positions
+        if (lastSpawn != Vector3.zero && lastHit != Vector3.zero)
         {
             Gizmos.color = Color.red;
             Gizmos.DrawLine(lastSpawn, lastHit);
