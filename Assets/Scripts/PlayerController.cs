@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     [Header("Hard-Required Components")]
     [SerializeField] private CharacterController controller;
     [SerializeField] private PlayerInput input;
+    [SerializeField] private Renderer markerRenderer;
     #endregion
 
     private Vector2 moveInput;
@@ -39,6 +40,9 @@ public class PlayerController : MonoBehaviour
     private Vector3 knockbackVelocity; // One-time knockback impulses from attacks
     private RollerPusher currentRoller; // The roller we're currently touching
     private Vector3 lastContactPoint; // Last point of contact with roller
+    
+    [HideInInspector]
+    public Color playerColor;
 
     #region Input callbacks
     private void OnMovePerformed(CallbackContext ctx)
@@ -90,6 +94,11 @@ public class PlayerController : MonoBehaviour
 
         input.actions[jumpInputActionName].performed -= OnJumpPerformed;
         input.actions[attackInputActionName].performed -= OnAttackPerformed;
+    }
+    private void Start()
+    {
+        markerRenderer.material = new Material(markerRenderer.material);
+        markerRenderer.material.color = playerColor;
     }
 
     private void Update()

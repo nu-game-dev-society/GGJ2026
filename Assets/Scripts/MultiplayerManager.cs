@@ -77,8 +77,14 @@ public class MultiplayerManager : MonoBehaviour
             // Get the PlayerInput component
             var playerInput = playerObj.GetComponent<PlayerInput>();
 
-            if (playerInput != null) 
+            if (playerInput != null)
             {
+                // Name the player based on index
+                playerObj.name = $"Player{playerInput.playerIndex}";
+
+                // Set color
+                playerObj.GetComponent<PlayerController>().playerColor = Color.HSVToRGB((playerInput.playerIndex * 0.618034f) % 1f, 1f, 1f);
+
                 // Switch to the correct control scheme and pair with device
                 playerInput.SwitchCurrentControlScheme(controlScheme, device);
 
