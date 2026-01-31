@@ -1190,6 +1190,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 979821388798615420, guid: ed702200de7af489aba9a3da91f886ea, type: 3}
+      propertyPath: m_Size.x
+      value: 7.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 979821388798615420, guid: ed702200de7af489aba9a3da91f886ea, type: 3}
+      propertyPath: m_Size.z
+      value: 4.79
+      objectReference: {fileID: 0}
     - target: {fileID: 1176988962677073167, guid: ed702200de7af489aba9a3da91f886ea, type: 3}
       propertyPath: particleSystem
       value: 
@@ -1351,15 +1359,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4806933456362814, guid: 8c2befacdf6e4a942b2af0d2bee49508, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.1723175
+      value: 0.17
       objectReference: {fileID: 0}
     - target: {fileID: 4806933456362814, guid: 8c2befacdf6e4a942b2af0d2bee49508, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.0149231
+      value: -1.01
       objectReference: {fileID: 0}
     - target: {fileID: 4806933456362814, guid: 8c2befacdf6e4a942b2af0d2bee49508, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.23705
+      value: 0.19
       objectReference: {fileID: 0}
     - target: {fileID: 4806933456362814, guid: 8c2befacdf6e4a942b2af0d2bee49508, type: 3}
       propertyPath: m_LocalRotation.w
