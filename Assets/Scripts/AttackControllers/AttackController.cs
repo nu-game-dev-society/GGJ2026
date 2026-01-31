@@ -11,7 +11,7 @@ public class AttackController : MonoBehaviour
     [SerializeField] protected float knockbackUpwardForce = 2f; // Upward component for dynamic feel
     [SerializeField] protected float characterControllerKnockbackMultiplier = 5f; // CharacterControllers need higher multiplier for similar effect
     [SerializeField] protected float attackCooldown = 0.5f;
-
+    [SerializeField] protected List<GameObject> ignoreCollisions;
     [Header("References")]
     [SerializeField] private Animator animator;
     [SerializeField] protected Transform attackPoint; // Optional: pivot point for attack origin

@@ -16,7 +16,7 @@ public class BashAttackController : AttackController
         foreach (Collider collider in hitColliders)
         {
             // Skip self
-            if (collider.gameObject == gameObject) continue;
+            if (ignoreCollisions.Contains(collider.gameObject)) continue;
 
             // Check if target is within attack cone
             Vector3 directionToTarget = (collider.transform.position - attackPoint.position).normalized;
