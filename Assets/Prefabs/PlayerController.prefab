@@ -222,9 +222,9 @@ MonoBehaviour:
   attackDamage: 10
   attackRange: 2
   attackAngle: 90
-  knockbackForce: 10
-  knockbackUpwardForce: 2
-  characterControllerKnockbackMultiplier: 2
+  knockbackForce: 20
+  knockbackUpwardForce: 20
+  characterControllerKnockbackMultiplier: 1
   attackCooldown: 0.5
   ignoreCollisions:
   - {fileID: 844825012498914322}
@@ -340,7 +340,7 @@ MonoBehaviour:
   attackDamage: 10
   attackRange: 2
   attackAngle: 90
-  knockbackForce: 10
+  knockbackForce: 20
   knockbackUpwardForce: 2
   characterControllerKnockbackMultiplier: 2
   attackCooldown: 0.5
