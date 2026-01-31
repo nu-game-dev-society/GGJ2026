@@ -83,7 +83,7 @@ MonoBehaviour:
   attackInputActionName: Attack
   attackControllers:
   - {fileID: 5831669736176378397}
-  - {fileID: 2262144869067240726}
+  - {fileID: 4181956848470342403}
   - {fileID: 2427962027602746365}
   - {fileID: 1636370963515048939}
   cameraCached: {fileID: 0}
@@ -299,7 +299,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4881862182393061683}
-  - component: {fileID: 2262144869067240726}
+  - component: {fileID: 4181956848470342403}
   m_Layer: 0
   m_Name: SlashAttackController
   m_TagString: Untagged
@@ -322,7 +322,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5265351012166827682}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2262144869067240726
+--- !u!114 &4181956848470342403
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -331,7 +331,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8537095096174818284}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 331c69020a18e1c42b6e936bf0f091b2, type: 3}
+  m_Script: {fileID: 11500000, guid: 05a31e68f5e0600418288d883dd4b185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 10

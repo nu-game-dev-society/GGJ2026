@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class SlashAttackController : AttackController
 {
+    public override AttackType AttackType => AttackType.Slash;
+
     protected override void DetectAndHitEnemies()
     {
         Vector3 attackOrigin = attackPoint.position;

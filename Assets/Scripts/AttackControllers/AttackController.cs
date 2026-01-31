@@ -16,11 +16,10 @@ public class AttackController : MonoBehaviour
     [SerializeField] protected Transform attackPoint; // Optional: pivot point for attack origin
     [SerializeField] protected LayerMask enemyLayer;
 
-    [Header("Animation")]
-    [field: SerializeField] public AttackType AttackType { get; private set; } = AttackType.None;
-
     [Header("Debug")]
     [SerializeField] private bool showDebugGizmos = true;
+
+    public virtual AttackType AttackType => AttackType.None;
 
     private float lastAttackTime = -999f;
     private float damageModifier = 1f;
@@ -66,7 +65,7 @@ public class AttackController : MonoBehaviour
 
     protected virtual void DetectAndHitEnemies()
     {
-        
+        Debug.LogError($"DetectAndHitEnemies not implemented in {nameof(AttackController)} subclass!");
     }
 
     protected void ApplyDamage(GameObject target)
