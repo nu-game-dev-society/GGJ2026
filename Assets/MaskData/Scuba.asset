@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8ceb740665b554447b07aab570e25a08, type: 3}
-  m_Name: Harpoon
+  m_Name: Scuba
   m_EditorClassIdentifier: 
-  maskName: Harpoon
+  maskName: Scuba
   description: Very good
   modelNames:
   - HarpoonCannon
   - HarpoonRigged
   - ScubaMask
+  attackType: 4
   maxHealth: 100
   healthRegenRate: 10
   healthRegenWaitTime: 2

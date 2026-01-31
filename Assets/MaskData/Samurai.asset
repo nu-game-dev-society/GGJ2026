@@ -18,6 +18,7 @@ MonoBehaviour:
   - SamuraiHat
   - SamuraiMask
   - SamuraiSword
+  attackType: 2
   maxHealth: 100
   healthRegenRate: 10
   healthRegenWaitTime: 2
