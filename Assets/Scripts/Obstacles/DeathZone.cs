@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class DeathZone : MonoBehaviour
 {
+    public ParticleSystem particleSystem;
+
     private void OnTriggerEnter(Collider other)
     {
         // Check if a player entered the death zone
@@ -9,6 +11,9 @@ public class DeathZone : MonoBehaviour
         if (player != null)
         {
             player.Kill();
+
+            if (particleSystem)
+                particleSystem.Play();
         }
     }
 }
