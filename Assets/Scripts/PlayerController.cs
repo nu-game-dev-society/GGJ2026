@@ -63,8 +63,6 @@ public class PlayerController : MonoBehaviour
         {
             attackControllersKeyedByMask.Add(attackController.AttackType, attackController);
         }
-
-        activeAttackController = attackControllersKeyedByMask[AttackType.None];
     }
  
     private void OnEnable()
