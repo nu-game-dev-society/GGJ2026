@@ -110,7 +110,13 @@ public class MaskSpawner : MonoBehaviour
             GameObject mask = GameObject.Instantiate(maskPrefabs[Random.Range(0, maskPrefabs.Length)]);
             mask.transform.position = spawnPos;
 
-            mask.AddComponent<Fall>().Setup(fallCurve, spawnPos, hitPos, fallTime * hit.distance);
+            MaskPickup pickup = mask.GetComponent<MaskPickup>();
+            pickup.enabled = false;
+
+            mask.AddComponent<Fall>().Setup(fallCurve, spawnPos, hitPos, fallTime * hit.distance, () =>
+            {
+                pickup.enabled = true;
+            });
 
             // Add to spawned masks list
             spawnedMasks.Add(mask);

@@ -11,11 +11,15 @@ public class MaskPickup : MonoBehaviour
     [SerializeField] private float bobHeight = 0.3f;
     [SerializeField] private bool animatePickup = true;
 
+    [SerializeField] private GameObject model;
+
     private Vector3 startPosition;
+    private float offset;
 
     private void Start()
     {
-        startPosition = transform.position;
+        startPosition = model.transform.position;
+        offset = Random.value * (Mathf.PI / 2);
     }
 
     private void Update()
@@ -26,8 +30,8 @@ public class MaskPickup : MonoBehaviour
         transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
 
         // Bob up and down
-        float newY = startPosition.y + Mathf.Sin(Time.time * bobSpeed) * bobHeight;
-        transform.position = new Vector3(transform.position.x, newY, transform.position.z);
+        float newY = startPosition.y + Mathf.Sin(Time.time * bobSpeed + offset) * bobHeight;
+        model.transform.position = new Vector3(model.transform.position.x, newY, model.transform.position.z);
     }
 
     private void OnTriggerEnter(Collider other)
