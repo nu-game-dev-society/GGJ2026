@@ -35,6 +35,8 @@ public class FanController : MonoBehaviour
     private HashSet<CharacterController> affectedCharacterControllers = new HashSet<CharacterController>();
     private Dictionary<CharacterController, IMovement> characterMovements = new Dictionary<CharacterController, IMovement>();
 
+
+    public Vector3 Direction;
     private void Start()
     {
         isOn = startOn;
@@ -70,7 +72,7 @@ public class FanController : MonoBehaviour
         // Rotate fan blades
         if (fanBladesTransform != null)
         {
-            fanBladesTransform.Rotate(Vector3.up, currentRotationSpeed * Time.deltaTime, Space.Self);
+            fanBladesTransform.Rotate(Direction, currentRotationSpeed * Time.deltaTime, Space.Self);
         }
 
         if (!isOn) return;
@@ -88,7 +90,7 @@ public class FanController : MonoBehaviour
             float upwardSpeed = fanForce * characterForceMultiplier * forceFalloff * Time.deltaTime;
 
             // Move character upward (CharacterController.Move adds to existing velocity)
-            cc.Move(transform.up * upwardSpeed);
+            cc.Move(Direction * upwardSpeed);
         }
     }
 
