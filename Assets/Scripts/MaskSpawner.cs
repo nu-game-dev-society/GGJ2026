@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class MaskSpawner : MonoBehaviour
 {
@@ -25,6 +26,14 @@ public class MaskSpawner : MonoBehaviour
     [SerializeField]
     [Range(1, 30)]
     private int maxSpawnCount = 4;
+
+    [SerializeField]
+    [Range(0f, 2f)]
+    [Tooltip("Time in seconds per unit")]
+    private float fallTime = 0.5f;
+
+    [SerializeField]
+    private AnimationCurve fallCurve;
 
     [SerializeField]
     private GameObject[] maskPrefabs;
@@ -99,7 +108,9 @@ public class MaskSpawner : MonoBehaviour
 
             // Instantiate mask at hit position
             GameObject mask = GameObject.Instantiate(maskPrefabs[Random.Range(0, maskPrefabs.Length)]);
-            mask.transform.position = lastHit;
+            mask.transform.position = spawnPos;
+
+            mask.AddComponent<Fall>().Setup(fallCurve, spawnPos, hitPos, fallTime * hit.distance);
 
             // Add to spawned masks list
             spawnedMasks.Add(mask);
