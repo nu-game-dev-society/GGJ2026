@@ -7,10 +7,10 @@ using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 public class MaskSpawner : MonoBehaviour
 {
     [SerializeField]
-    private Vector2 start;
+    private Vector2 start = new Vector2(-10, -10);
 
     [SerializeField]
-    private Vector2 end;
+    private Vector2 end = new Vector2(10, 10);
 
     [SerializeField]
     private LayerMask spawningLayerMask;
@@ -108,6 +108,7 @@ public class MaskSpawner : MonoBehaviour
 
             // Instantiate mask at hit position
             GameObject mask = GameObject.Instantiate(maskPrefabs[Random.Range(0, maskPrefabs.Length)]);
+            mask.transform.rotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
             mask.transform.position = spawnPos;
 
             MaskPickup pickup = mask.GetComponent<MaskPickup>();
