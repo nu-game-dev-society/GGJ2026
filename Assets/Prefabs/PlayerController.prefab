@@ -226,6 +226,8 @@ MonoBehaviour:
   knockbackUpwardForce: 2
   characterControllerKnockbackMultiplier: 2
   attackCooldown: 0.5
+  ignoreCollisions:
+  - {fileID: 844825012498914322}
   animator: {fileID: 6112616524437261588}
   attackPoint: {fileID: 0}
   enemyLayer:
@@ -283,6 +285,8 @@ MonoBehaviour:
   knockbackUpwardForce: 2
   characterControllerKnockbackMultiplier: 2
   attackCooldown: 0.5
+  ignoreCollisions:
+  - {fileID: 844825012498914322}
   animator: {fileID: 6112616524437261588}
   attackPoint: {fileID: 0}
   enemyLayer:
@@ -340,6 +344,8 @@ MonoBehaviour:
   knockbackUpwardForce: 2
   characterControllerKnockbackMultiplier: 2
   attackCooldown: 0.5
+  ignoreCollisions:
+  - {fileID: 844825012498914322}
   animator: {fileID: 6112616524437261588}
   attackPoint: {fileID: 0}
   enemyLayer:
@@ -432,6 +438,7 @@ MonoBehaviour:
   knockbackUpwardForce: 2
   characterControllerKnockbackMultiplier: 2
   attackCooldown: 0.5
+  ignoreCollisions: []
   animator: {fileID: 6112616524437261588}
   attackPoint: {fileID: 0}
   enemyLayer:
