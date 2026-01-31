@@ -593,7 +593,7 @@ Transform:
   m_GameObject: {fileID: 1579283671}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -613,12 +613,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   start: {x: -10, y: -10}
   end: {x: 10, y: 10}
-  maskPrefabs:
-  - {fileID: 116412331409264621, guid: 4318067c4004d21428e9967a4a3e54b9, type: 3}
   spawningLayerMask:
     serializedVersion: 2
     m_Bits: 256
   spawnSpaceRadius: 0.75
+  spawnTime: 5
+  maxSpawnCount: 4
+  fallTime: 0.5
+  fallCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  maskPrefabs:
+  - {fileID: 116412331409264621, guid: 4318067c4004d21428e9967a4a3e54b9, type: 3}
 --- !u!1 &1636994914
 GameObject:
   m_ObjectHideFlags: 0
