@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Explosion : MonoBehaviour
 {
@@ -6,6 +7,7 @@ public class Explosion : MonoBehaviour
     [SerializeField] private float explosionRadius = 5f;
     [SerializeField] private float explosionForce = 500f;
     [SerializeField] private float upwardModifier = 1f; // Adds upward force for more dramatic effect
+    [SerializeField] private float characterControllerForceMultiplier = 1f; // CharacterControllers need higher multiplier
     [SerializeField] private float damage = 50f;
     [SerializeField] private LayerMask affectedLayers = ~0; // All layers by default
 
@@ -55,6 +57,11 @@ public class Explosion : MonoBehaviour
             // Skip self
             if (hit.gameObject == gameObject) continue;
 
+            // Calculate common values for both rigidbodies and character controllers
+            Vector3 targetPosition = hit.transform.position;
+            float distance = Vector3.Distance(explosionPosition, targetPosition);
+            float forceFalloff = 1f - (distance / explosionRadius); // Linear falloff
+
             // Apply force to rigidbodies
             Rigidbody rb = hit.GetComponent<Rigidbody>();
             if (rb != null)
@@ -62,12 +69,32 @@ public class Explosion : MonoBehaviour
                 rb.AddExplosionForce(explosionForce, explosionPosition, explosionRadius, upwardModifier, ForceMode.Impulse);
             }
 
+            // Try to apply knockback to PlayerController (CharacterController)
+            PlayerController player = hit.GetComponent<PlayerController>();
+            if (player != null)
+            {
+                // Calculate explosion direction (from explosion to player)
+                Vector3 direction = (targetPosition - explosionPosition).normalized;
+
+                // Convert rigidbody force to CharacterController velocity
+                // Rigidbody force is divided by mass (assume mass ~1) to get velocity
+                // For CharacterController, we need a much smaller value since it's direct movement
+                float velocityMagnitude = (explosionForce / 100f) * forceFalloff * characterControllerForceMultiplier;
+
+                // Apply horizontal direction
+                Vector3 knockbackVector = direction * velocityMagnitude;
+
+                // Add upward component (separate from direction for more control)
+                knockbackVector.y = upwardModifier * velocityMagnitude;
+
+                player.ApplyKnockback(knockbackVector);
+            }
+
             // Apply damage if target has health
             IHealth health = hit.GetComponent<IHealth>();
             if (health != null)
             {
                 // Calculate damage falloff based on distance
-                float distance = Vector3.Distance(explosionPosition, hit.transform.position);
                 float damageFalloff = 1f - (distance / explosionRadius);
                 float finalDamage = damage * damageFalloff;
 
