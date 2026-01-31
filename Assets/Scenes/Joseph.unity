@@ -232,6 +232,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &155116448
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 155116449}
+  m_Layer: 0
+  m_Name: GameObject (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &155116449
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 155116448}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1, y: -3.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1288798957}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &304348806
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1609,7 +1640,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6059277349221588547, guid: 525a2c24778f22e43bdd5710afa3bd2f, type: 3}
       propertyPath: spawnLocations.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6059277349221588547, guid: 525a2c24778f22e43bdd5710afa3bd2f, type: 3}
       propertyPath: 'spawnLocations.Array.data[0]'
@@ -1635,6 +1666,10 @@ PrefabInstance:
       propertyPath: 'spawnLocations.Array.data[5]'
       value: 
       objectReference: {fileID: 571227985}
+    - target: {fileID: 6059277349221588547, guid: 525a2c24778f22e43bdd5710afa3bd2f, type: 3}
+      propertyPath: 'spawnLocations.Array.data[6]'
+      value: 
+      objectReference: {fileID: 155116449}
     - target: {fileID: 7199584654887734480, guid: 525a2c24778f22e43bdd5710afa3bd2f, type: 3}
       propertyPath: m_JoinBehavior
       value: 2
@@ -1683,6 +1718,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1626164673053902193, guid: 525a2c24778f22e43bdd5710afa3bd2f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 123469564}
+    - targetCorrespondingSourceObject: {fileID: 1626164673053902193, guid: 525a2c24778f22e43bdd5710afa3bd2f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 155116449}
     - targetCorrespondingSourceObject: {fileID: 1626164673053902193, guid: 525a2c24778f22e43bdd5710afa3bd2f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2048614837}
