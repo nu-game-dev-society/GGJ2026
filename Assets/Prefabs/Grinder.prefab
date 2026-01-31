@@ -497,7 +497,7 @@ MonoBehaviour:
   <Rotators>k__BackingField:
   - {fileID: 7769478721555333460}
   - {fileID: 3616463888029085483}
-  <RotateSpeed>k__BackingField: 45
+  <RotateSpeed>k__BackingField: 300
   <RollDirection>k__BackingField: {x: 0, y: 1, z: 0}
 --- !u!1 &8603282983550607701
 GameObject:
