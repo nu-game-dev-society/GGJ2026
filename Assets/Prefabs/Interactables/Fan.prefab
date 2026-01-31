@@ -215,8 +215,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.73, y: 7.67, z: 0.66}
-  m_Center: {x: 0.000000059604645, y: 4.78, z: -0.00000008940697}
+  m_Size: {x: 0.73, y: 60.548496, z: 0.66}
+  m_Center: {x: 0.0000000715257, y: 31.219269, z: -0.00000009536743}
 --- !u!1 &4441144790165015539
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,6 +270,7 @@ MonoBehaviour:
   maxOnTime: 20
   minOffTime: 10
   maxOffTime: 25
+  characterForceMultiplier: 0.1
   characterMovementMultiplier: 0.3
   fanBladesTransform: {fileID: 3008593129811323117}
   fanRotationSpeed: 720
