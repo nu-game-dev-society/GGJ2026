@@ -9,6 +9,7 @@ public class AttackController : MonoBehaviour
     [SerializeField] protected float attackAngle = 90f; // Cone angle in degrees
     [SerializeField] protected float knockbackForce = 10f;
     [SerializeField] protected float knockbackUpwardForce = 2f; // Upward component for dynamic feel
+    [SerializeField] protected float characterControllerKnockbackMultiplier = 5f; // CharacterControllers need higher multiplier for similar effect
     [SerializeField] protected float attackCooldown = 0.5f;
 
     [Header("References")]
@@ -80,16 +81,32 @@ public class AttackController : MonoBehaviour
 
     }
 
-    protected  void ApplyKnockback(Collider target, Vector3 direction)
+    protected void ApplyKnockback(Collider target, Vector3 direction)
     {
+        // Normalize horizontal direction
+        Vector3 knockbackDirection = new Vector3(direction.x, 0, direction.z).normalized;
+
+        // Try to apply knockback to Rigidbody
         Rigidbody rb = target.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            // Apply force in the direction with upward component for Gang Beasts style physics
-            Vector3 knockbackDirection = new Vector3(direction.x, 0, direction.z).normalized;
+            // Apply force with upward component for Gang Beasts style physics
             Vector3 knockbackVector = knockbackDirection * knockbackForce + Vector3.up * knockbackUpwardForce;
-
             rb.AddForce(knockbackVector, ForceMode.Impulse);
+            return;
+        }
+
+        // Try to apply knockback to PlayerController (CharacterController)
+        PlayerController player = target.GetComponent<PlayerController>();
+        if (player != null)
+        {
+            Debug.Log("PlayerFound: " + player.name);
+            // CharacterControllers need a higher multiplier since they use direct movement
+            // Also need to apply over time, not as impulse
+            Vector3 knockbackVector = knockbackDirection * knockbackForce * characterControllerKnockbackMultiplier
+                                    + Vector3.up * knockbackUpwardForce * characterControllerKnockbackMultiplier;
+
+            player.ApplyKnockback(knockbackVector);
         }
     }
 

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5083259849083502680}
   - component: {fileID: 7743157502109794958}
   - component: {fileID: 3907916193161849882}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlayerController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,6 +224,7 @@ MonoBehaviour:
   attackAngle: 90
   knockbackForce: 10
   knockbackUpwardForce: 2
+  characterControllerKnockbackMultiplier: 2
   attackCooldown: 0.5
   animator: {fileID: 6112616524437261588}
   attackPoint: {fileID: 0}
@@ -280,6 +281,7 @@ MonoBehaviour:
   attackAngle: 60
   knockbackForce: 10
   knockbackUpwardForce: 2
+  characterControllerKnockbackMultiplier: 2
   attackCooldown: 0.5
   animator: {fileID: 6112616524437261588}
   attackPoint: {fileID: 0}
@@ -336,6 +338,7 @@ MonoBehaviour:
   attackAngle: 90
   knockbackForce: 10
   knockbackUpwardForce: 2
+  characterControllerKnockbackMultiplier: 2
   attackCooldown: 0.5
   animator: {fileID: 6112616524437261588}
   attackPoint: {fileID: 0}
@@ -427,6 +430,7 @@ MonoBehaviour:
   attackAngle: 90
   knockbackForce: 10
   knockbackUpwardForce: 2
+  characterControllerKnockbackMultiplier: 2
   attackCooldown: 0.5
   animator: {fileID: 6112616524437261588}
   attackPoint: {fileID: 0}

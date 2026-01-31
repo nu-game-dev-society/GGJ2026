@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveInput;
     private Vector3 velocity;
     private Vector3 externalForce; // Forces from rollers, conveyor belts, etc.
+    private Vector3 knockbackVelocity; // One-time knockback impulses from attacks
     private RollerPusher currentRoller; // The roller we're currently touching
     private Vector3 lastContactPoint; // Last point of contact with roller
 
@@ -201,8 +202,31 @@ public class PlayerController : MonoBehaviour
         externalForce = force;
     }
 
+    /// <summary>
+    /// Apply knockback impulse from attacks
+    /// </summary>
+    public void ApplyKnockback(Vector3 knockbackVector)
+    {
+        // Add to existing knockback (allows multiple hits to stack)
+        knockbackVelocity += knockbackVector;
+
+        // Also add upward velocity if grounded
+        if (controller.isGrounded && knockbackVector.y > 0)
+        {
+            velocity.y = knockbackVector.y;
+        }
+    }
+
     private void ApplyExternalForces()
     {
+        // Handle knockback (decays quickly)
+        if (knockbackVelocity.magnitude > 0.01f)
+        {
+            controller.Move(knockbackVelocity * Time.deltaTime);
+            // Decay knockback quickly (friction-like behavior)
+            knockbackVelocity = Vector3.Lerp(knockbackVelocity, Vector3.zero, 8f * Time.deltaTime);
+        }
+
         // If we're on a roller, continuously get push force
         if (currentRoller != null)
         {
