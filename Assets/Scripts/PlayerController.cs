@@ -39,6 +39,9 @@ public class PlayerController : MonoBehaviour
     private Vector3 externalForce; // Forces from rollers, conveyor belts, etc.
     private Vector3 knockbackVelocity; // One-time knockback impulses from attacks
     private RollerPusher currentRoller; // The roller we're currently touching
+
+    private bool isStunned = false;
+    private float stunEndTime = 0f;
     private Vector3 lastContactPoint; // Last point of contact with roller
     
     [HideInInspector]
@@ -103,6 +106,12 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        // Check if stun duration has expired
+        if (isStunned && Time.time >= stunEndTime)
+        {
+            isStunned = false;
+        }
+
         // Clear roller reference at start of frame
         // It will be set again by OnControllerColliderHit if we're still touching
         currentRoller = null;
@@ -127,6 +136,13 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
+        // Don't allow movement while stunned
+        if (isStunned)
+        {
+            animator.SetFloat("Move", 0f);
+            return;
+        }
+
         // Get camera relative directions
         Vector3 camForward = cameraCached.transform.forward;
         Vector3 camRight = cameraCached.transform.right;
@@ -158,6 +174,9 @@ public class PlayerController : MonoBehaviour
 
     private void Attack()
     {
+        // Can't attack while stunned
+        if (isStunned) return;
+
         if (this.activeAttackController == null)
         {
             Debug.LogError($"Failed to attack - {nameof(activeAttackController)} was null!");
@@ -168,6 +187,9 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
+        // Can't jump while stunned
+        if (isStunned) return;
+
         if (controller.isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
@@ -224,6 +246,17 @@ public class PlayerController : MonoBehaviour
         {
             velocity.y = knockbackVector.y;
         }
+    }
+
+    /// <summary>
+    /// Stun the player for a duration (disables movement, jumping, attacking)
+    /// Called via UnityEvent from PlayerHealthController when health reaches 0
+    /// </summary>
+    public void Stun(float duration)
+    {
+        isStunned = true;
+        stunEndTime = Time.time + duration;
+        Debug.Log($"{name} stunned for {duration} seconds");
     }
 
     private void ApplyExternalForces()
