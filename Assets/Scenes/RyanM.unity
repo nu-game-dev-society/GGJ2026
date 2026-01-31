@@ -119,37 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &34839880
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 34839881}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &34839881
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 34839880}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.23, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 259867598}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &258712708
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,36 +228,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 647810667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &259867591 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 844825012498914322, guid: b3a8bd04f112d9c4c84b561c557fb6c5, type: 3}
-  m_PrefabInstance: {fileID: 1827026520}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &259867598 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2932215103927743486, guid: b3a8bd04f112d9c4c84b561c557fb6c5, type: 3}
-  m_PrefabInstance: {fileID: 1827026520}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &259867599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 259867591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8d046f17d7c7694899eda3261eea679, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maskAttachPoint: {fileID: 34839881}
-  currentMask: {fileID: 0}
-  OnMaskEquipped:
-    m_PersistentCalls:
-      m_Calls: []
-  OnMaskRemoved:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &647810666
 GameObject:
   m_ObjectHideFlags: 0
@@ -744,6 +683,8 @@ MonoBehaviour:
   maskPrefabs:
   - {fileID: 116412331409264621, guid: 4318067c4004d21428e9967a4a3e54b9, type: 3}
   - {fileID: 116412331409264621, guid: 49a240ceed29339469bac5eb44e86b66, type: 3}
+  - {fileID: 116412331409264621, guid: 500a476f87764f04d94535bc9c14e6b0, type: 3}
+  - {fileID: 116412331409264621, guid: 62341cc8ee6c28f40a33753b8377554a, type: 3}
 --- !u!1 &1636994914
 GameObject:
   m_ObjectHideFlags: 0
@@ -1158,14 +1099,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 2932215103927743486, guid: b3a8bd04f112d9c4c84b561c557fb6c5, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 34839881}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 844825012498914322, guid: b3a8bd04f112d9c4c84b561c557fb6c5, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 259867599}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3a8bd04f112d9c4c84b561c557fb6c5, type: 3}
 --- !u!1 &2130584123
 GameObject:

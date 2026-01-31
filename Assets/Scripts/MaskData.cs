@@ -8,7 +8,7 @@ public class MaskData : ScriptableObject
     [TextArea(2, 4)]
     public string description;
     public string[] modelNames; // Names of 3D models associated with the mask
-    //public AttackType attackType;
+    public AttackType attackType;
 
     [Header("Stats")]
     public float maxHealth = 100f;

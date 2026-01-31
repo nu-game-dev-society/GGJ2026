@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 992872790029498822}
   - component: {fileID: 5083259849083502680}
   - component: {fileID: 7743157502109794958}
+  - component: {fileID: 3907916193161849882}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Untagged
@@ -137,6 +138,27 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3907916193161849882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 844825012498914322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8d046f17d7c7694899eda3261eea679, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 992872790029498822}
+  maskModelsParent: {fileID: 2211073112154738604}
+  currentMask: {fileID: 0}
+  OnMaskEquipped:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMaskRemoved:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2331426152024093782
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,8 +214,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
-  <AnimationTrigger>k__BackingField: 4
-  <AssociatedMask>k__BackingField: 2
+  <AttackType>k__BackingField: 0
   showDebugGizmos: 1
 --- !u!1 &4478559819594922396
 GameObject:
@@ -250,8 +271,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
-  <AnimationTrigger>k__BackingField: 3
-  <AssociatedMask>k__BackingField: 3
+  <AttackType>k__BackingField: 0
   showDebugGizmos: 1
 --- !u!1 &8537095096174818284
 GameObject:
@@ -308,8 +328,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
-  <AnimationTrigger>k__BackingField: 0
-  <AssociatedMask>k__BackingField: 0
+  <AttackType>k__BackingField: 0
   showDebugGizmos: 1
 --- !u!1 &8891761928386076359
 GameObject:
@@ -401,8 +420,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
-  <AnimationTrigger>k__BackingField: 0
-  <AssociatedMask>k__BackingField: 0
+  <AttackType>k__BackingField: 0
   showDebugGizmos: 1
 --- !u!1001 &5286520648249121342
 PrefabInstance:
@@ -412,6 +430,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2932215103927743486}
     m_Modifications:
+    - target: {fileID: 2524019487498586646, guid: 7e969a3e7f31b4e58a470d234ddeae81, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2619611009508880577, guid: 7e969a3e7f31b4e58a470d234ddeae81, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001396195971065131, guid: 7e969a3e7f31b4e58a470d234ddeae81, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6337182338829424018, guid: 7e969a3e7f31b4e58a470d234ddeae81, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
