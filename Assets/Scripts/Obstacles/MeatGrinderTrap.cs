@@ -9,6 +9,7 @@ public class MeatGrinderTrap : MonoBehaviour
     [field: SerializeField]
     public Vector3 RollDirection { get; set; }
 
+
     void Update()
     {
         for (int i = 0; i < Rotators.Length; i++)
