@@ -84,8 +84,7 @@ MonoBehaviour:
   attackControllers:
   - {fileID: 5831669736176378397}
   - {fileID: 4181956848470342403}
-  - {fileID: 2427962027602746365}
-  - {fileID: 1636370963515048939}
+  - {fileID: 2276398069789234167}
   cameraCached: {fileID: 0}
   animator: {fileID: 6112616524437261588}
   controller: {fileID: 6167410110698181940}
@@ -117,7 +116,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!136 &7743157502109794958
@@ -231,7 +230,6 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 192
-  <AttackType>k__BackingField: 4
   showDebugGizmos: 1
 --- !u!1 &4478559819594922396
 GameObject:
@@ -242,9 +240,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9166109645507889839}
-  - component: {fileID: 1636370963515048939}
+  - component: {fileID: 2276398069789234167}
   m_Layer: 0
-  m_Name: WhackAttackController
+  m_Name: BashAttackController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -265,7 +263,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5265351012166827682}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1636370963515048939
+--- !u!114 &2276398069789234167
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -274,12 +272,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4478559819594922396}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 331c69020a18e1c42b6e936bf0f091b2, type: 3}
+  m_Script: {fileID: 11500000, guid: 4096878ebfaaa4b42b43f9e46dcf4cc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 10
-  attackRange: 2
-  attackAngle: 90
+  attackRange: 3
+  attackAngle: 60
   knockbackForce: 10
   knockbackUpwardForce: 2
   attackCooldown: 0.5
@@ -288,7 +286,6 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 192
-  <AttackType>k__BackingField: 3
   showDebugGizmos: 1
 --- !u!1 &8537095096174818284
 GameObject:
@@ -345,7 +342,6 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 192
-  <AttackType>k__BackingField: 2
   showDebugGizmos: 1
 --- !u!1 &8891761928386076359
 GameObject:
@@ -437,7 +433,6 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 192
-  <AttackType>k__BackingField: 0
   showDebugGizmos: 1
 --- !u!1001 &5286520648249121342
 PrefabInstance:

@@ -1,9 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class SlashAttackController : AttackController
+public class BashAttackController : AttackController
 {
-    public override AttackType AttackType => AttackType.Slash;
+    public override AttackType AttackType => AttackType.Bash;
 
     protected override void DetectAndHitEnemies()
     {
@@ -33,7 +33,7 @@ public class SlashAttackController : AttackController
                 ApplyDamage(collider.gameObject);
 
                 // Apply knockback
-                ApplyKnockback(collider, directionToTarget);
+                ApplyKnockback(collider, directionToTarget + (Vector3.up * 5f));
             }
         }
     }

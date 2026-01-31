@@ -76,7 +76,7 @@ public class MultiplayerManager : MonoBehaviour
             // Get the PlayerInput component
             var playerInput = playerObj.GetComponent<PlayerInput>();
 
-            if (playerInput != null)
+            if (playerInput != null) 
             {
                 // Switch to the correct control scheme and pair with device
                 playerInput.SwitchCurrentControlScheme(controlScheme, device);
