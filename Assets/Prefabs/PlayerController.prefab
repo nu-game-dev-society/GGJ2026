@@ -493,8 +493,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5680460822004594699}
+  m_Children: []
   m_Father: {fileID: 5265351012166827682}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1023764035362239707
@@ -514,11 +513,12 @@ MonoBehaviour:
   attackAngle: 90
   knockbackForce: 10
   knockbackUpwardForce: 2
-  characterControllerKnockbackMultiplier: 5
+  characterControllerKnockbackMultiplier: 2
   attackCooldown: 0.5
-  ignoreCollisions: []
+  ignoreCollisions:
+  - {fileID: 844825012498914322}
   animator: {fileID: 6112616524437261588}
-  attackPoint: {fileID: 5680460822004594699}
+  attackPoint: {fileID: 0}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 192
@@ -526,6 +526,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 8254148713983720978, guid: 46ab341be3d8ff5429e92793afbaf888, type: 3}
   projectileSpeed: 20
   projectileFireDelayInSeconds: 0.5
+  projectileLifetimeInSeconds: 5
 --- !u!1 &8891761928386076359
 GameObject:
   m_ObjectHideFlags: 0

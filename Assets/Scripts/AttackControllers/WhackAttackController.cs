@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class WhackAttackController : AttackController
 {
@@ -25,9 +26,10 @@ public class WhackAttackController : AttackController
     private void FireProjectile()
     {
         var projectile = Instantiate(projectilePrefab).GetComponent<WhackProjectile>();
+        
         projectile.gameObject.transform.position = this.attackPoint.position;
         projectile.Damage = this.attackDamage;
-        projectile.Launch(transform.forward, projectileSpeed);
+        projectile.Launch(ignoreCollisions.SelectMany(go => go.GetComponentsInChildren<Collider>()).ToArray(), transform.forward, projectileSpeed);
 
         IEnumerator DestroyProjectileDelayed()
         {
