@@ -3,8 +3,8 @@ using UnityEngine;
 public class RollerPusher : MonoBehaviour
 {
     [Header("Push Settings")]
-    [SerializeField] private float pushForce = 10f;
-    [SerializeField] private float upwardForce = 0.5f; // Helps keep player on top
+    [SerializeField] private float pushForce = 15f;
+    [SerializeField] private Vector3 pushDirection = Vector3.right; // Direction to push (in local space)
 
     [Header("Rotation Reference")]
     [SerializeField] private Transform rotatingTransform; // The visual roller that's rotating
@@ -32,27 +32,35 @@ public class RollerPusher : MonoBehaviour
     /// </summary>
     public Vector3 GetPushForce(Vector3 contactPoint)
     {
-        Vector3 pushDirection = GetPushDirection(contactPoint);
-        return pushDirection * pushForce;
-    }
-
-    private Vector3 GetPushDirection(Vector3 contactPoint)
-    {
         // Get rotation speed from MeatGrinderTrap if available
         float rotationSpeed = meatGrinder != null ? meatGrinder.RotateSpeed : 10f;
 
-        // Calculate the tangent direction (perpendicular to radius)
-        // Since the roller rotates around Z-axis (forward), we calculate tangent in XY plane
-        Vector3 toContact = contactPoint - rotatingTransform.position;
-        toContact.z = 0; // Flatten to XY plane
+        // Calculate push direction based on rotation
+        Vector3 worldPushDirection = CalculatePushDirection(contactPoint, rotationSpeed);
 
-        // Tangent is perpendicular to radius (cross product with rotation axis)
-        Vector3 rotationAxis = rotatingTransform.forward * Mathf.Sign(rotationSpeed);
-        Vector3 pushDirection = Vector3.Cross(rotationAxis, toContact.normalized);
+        return worldPushDirection * pushForce;
+    }
 
-        // Add slight upward force to keep player on top of roller
-        pushDirection.y += upwardForce;
+    private Vector3 CalculatePushDirection(Vector3 contactPoint, float rotationSpeed)
+    {
+        // If rotation speed is positive, use the push direction as-is
+        // If negative, reverse it
+        Vector3 direction = transform.TransformDirection(pushDirection);
 
-        return pushDirection.normalized;
+        if (rotationSpeed < 0)
+        {
+            direction = -direction;
+        }
+
+        return direction.normalized;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        // Draw push direction in editor
+        Gizmos.color = Color.red;
+        Vector3 worldDir = transform.TransformDirection(pushDirection);
+        Gizmos.DrawRay(transform.position, worldDir * 2f);
+        Gizmos.DrawSphere(transform.position + worldDir * 2f, 0.2f);
     }
 }

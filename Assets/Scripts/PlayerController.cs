@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveInput;
     private Vector3 velocity;
     private Vector3 externalForce; // Forces from rollers, conveyor belts, etc.
+    private RollerPusher currentRoller; // The roller we're currently touching
+    private Vector3 lastContactPoint; // Last point of contact with roller
 
     #region Input callbacks
     private void OnMovePerformed(CallbackContext ctx)
@@ -91,6 +93,10 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        // Clear roller reference at start of frame
+        // It will be set again by OnControllerColliderHit if we're still touching
+        currentRoller = null;
+
         Move();
         ApplyGravity();
         ApplyExternalForces();
@@ -102,9 +108,9 @@ public class PlayerController : MonoBehaviour
         RollerPusher roller = hit.gameObject.GetComponent<RollerPusher>();
         if (roller != null)
         {
-            // Get push force from the roller based on contact point
-            Vector3 pushForce = roller.GetPushForce(hit.point);
-            ApplyExternalForce(pushForce);
+            // Store current roller and contact point
+            currentRoller = roller;
+            lastContactPoint = hit.point;
         }
     }
     #endregion
@@ -197,18 +203,21 @@ public class PlayerController : MonoBehaviour
 
     private void ApplyExternalForces()
     {
-        if (externalForce.magnitude > 0.01f)
+        // If we're on a roller, continuously get push force
+        if (currentRoller != null)
         {
-            // Apply the external force
+            externalForce = currentRoller.GetPushForce(lastContactPoint);
+            // Apply the roller force
             controller.Move(externalForce * Time.deltaTime);
-
-            // Decay the force quickly so it doesn't accumulate
-            // This allows player to fight against it
-            externalForce = Vector3.Lerp(externalForce, Vector3.zero, 5f * Time.deltaTime);
         }
         else
         {
-            externalForce = Vector3.zero;
+            // Not on a roller anymore, quickly decay any remaining force
+            if (externalForce.magnitude > 0.01f)
+            {
+                controller.Move(externalForce * Time.deltaTime);
+                externalForce = Vector3.Lerp(externalForce, Vector3.zero, 10f * Time.deltaTime);
+            }
         }
     }
 

@@ -16,6 +16,7 @@ public class FanController : MonoBehaviour
     [SerializeField] private float maxOffTime = 6f;
 
     [Header("Character Controller Settings")]
+    [SerializeField] private float characterForceMultiplier = 0.1f; // How strong the fan pushes CharacterControllers (0.1 = 10% of rigidbody force)
     [SerializeField] private float characterMovementMultiplier = 0.3f; // Movement speed when in fan
 
     [Header("Visual/Audio")]
@@ -56,7 +57,7 @@ public class FanController : MonoBehaviour
             float currentForce = fanForce * forceFalloff;
 
             // Apply upward force - momentum is automatically conserved
-            rb.AddForce(Vector3.up * currentForce, ForceMode.Force);
+            rb.AddForce(transform.up * currentForce, ForceMode.Force);
         }
     }
 
@@ -82,10 +83,12 @@ public class FanController : MonoBehaviour
             // Apply upward movement to character controller
             float distanceFromFan = Vector3.Distance(transform.position, cc.transform.position);
             float forceFalloff = Mathf.Clamp01(1f - (distanceFromFan / maxFloatHeight));
-            float upwardSpeed = fanForce * forceFalloff * Time.deltaTime;
+
+            // Scale down the force for CharacterControllers since they use direct movement
+            float upwardSpeed = fanForce * characterForceMultiplier * forceFalloff * Time.deltaTime;
 
             // Move character upward (CharacterController.Move adds to existing velocity)
-            cc.Move(Vector3.up * upwardSpeed);
+            cc.Move(transform.up * upwardSpeed);
         }
     }
 
