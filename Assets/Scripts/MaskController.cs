@@ -1,14 +1,14 @@
 using UnityEngine;
 using UnityEngine.Events;
+using static UnityEngine.Mesh;
 
 public class MaskController : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private Transform maskAttachPoint; // Where the mask attaches to the player's face
+    [SerializeField] private Transform maskModelsParent;
 
     [Header("Current Mask")]
     [SerializeField] private MaskData currentMask;
-    private GameObject currentMaskObject;
 
     [Header("Events")]
     public UnityEvent<MaskData> OnMaskEquipped;
@@ -31,12 +31,14 @@ public class MaskController : MonoBehaviour
         // Set new mask
         currentMask = maskData;
 
-        // Instantiate mask prefab
-        if (maskData.maskPrefab != null && maskAttachPoint != null)
+        // Make all needed models active
+        foreach (string modelName in maskData.modelNames)
         {
-            currentMaskObject = Instantiate(maskData.maskPrefab, maskAttachPoint);
-            currentMaskObject.transform.localPosition = maskData.attachOffset;
-            currentMaskObject.transform.localRotation = Quaternion.Euler(maskData.attachRotation);
+            Transform modelTransform = maskModelsParent.Find(modelName);
+            if (modelTransform != null)
+            {
+                modelTransform.gameObject.SetActive(true);
+            }
         }
 
         // Apply mask properties
@@ -52,11 +54,14 @@ public class MaskController : MonoBehaviour
         // Remove mask properties before destroying
         RemoveMaskProperties();
 
-        // Destroy mask object
-        if (currentMaskObject != null)
+        // Make all needed models inactive
+        foreach (string modelName in currentMask.modelNames)
         {
-            Destroy(currentMaskObject);
-            currentMaskObject = null;
+            Transform modelTransform = maskModelsParent.Find(modelName);
+            if (modelTransform != null)
+            {
+                modelTransform.gameObject.SetActive(false);
+            }
         }
 
         currentMask = null;

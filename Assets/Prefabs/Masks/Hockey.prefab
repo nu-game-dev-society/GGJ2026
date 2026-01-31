@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7008188910399235928}
   - component: {fileID: 4193688133486753210}
   m_Layer: 0
-  m_Name: ExampleMask
+  m_Name: Hockey
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,7 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ddec9623ee8f954faf263007f9ff787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maskData: {fileID: 11400000, guid: a3b510f12b034ce4b94aab111356b338, type: 2}
+  maskData: {fileID: 11400000, guid: dcddd3556058bc4429b0fe842c4b5ae6, type: 2}
   rotationSpeed: 50
   bobSpeed: 2
   bobHeight: 0.3
