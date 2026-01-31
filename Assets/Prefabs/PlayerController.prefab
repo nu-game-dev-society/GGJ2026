@@ -80,7 +80,12 @@ MonoBehaviour:
   gravity: -9.81
   moveInputActionName: Move
   jumpInputActionName: Jump
-  attackControllers: []
+  attackInputActionName: Attack
+  attackControllers:
+  - {fileID: 5831669736176378397}
+  - {fileID: 2262144869067240726}
+  - {fileID: 2427962027602746365}
+  - {fileID: 1636370963515048939}
   cameraCached: {fileID: 0}
   animator: {fileID: 6112616524437261588}
   controller: {fileID: 6167410110698181940}
@@ -155,7 +160,19 @@ MonoBehaviour:
   currentMask: {fileID: 0}
   OnMaskEquipped:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 992872790029498822}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnMaskEquipped
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnMaskRemoved:
     m_PersistentCalls:
       m_Calls: []
@@ -170,7 +187,7 @@ GameObject:
   - component: {fileID: 2847939113305357513}
   - component: {fileID: 2427962027602746365}
   m_Layer: 0
-  m_Name: ScubaMaskAttackController
+  m_Name: BlastAttackController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -213,8 +230,8 @@ MonoBehaviour:
   attackPoint: {fileID: 0}
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 64
-  <AttackType>k__BackingField: 0
+    m_Bits: 192
+  <AttackType>k__BackingField: 4
   showDebugGizmos: 1
 --- !u!1 &4478559819594922396
 GameObject:
@@ -227,7 +244,7 @@ GameObject:
   - component: {fileID: 9166109645507889839}
   - component: {fileID: 1636370963515048939}
   m_Layer: 0
-  m_Name: ClownMaskAttackController
+  m_Name: WhackAttackController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -270,8 +287,8 @@ MonoBehaviour:
   attackPoint: {fileID: 0}
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 64
-  <AttackType>k__BackingField: 0
+    m_Bits: 192
+  <AttackType>k__BackingField: 3
   showDebugGizmos: 1
 --- !u!1 &8537095096174818284
 GameObject:
@@ -284,7 +301,7 @@ GameObject:
   - component: {fileID: 4881862182393061683}
   - component: {fileID: 2262144869067240726}
   m_Layer: 0
-  m_Name: SamuraiMaskAttackController
+  m_Name: SlashAttackController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -327,8 +344,8 @@ MonoBehaviour:
   attackPoint: {fileID: 0}
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 64
-  <AttackType>k__BackingField: 0
+    m_Bits: 192
+  <AttackType>k__BackingField: 2
   showDebugGizmos: 1
 --- !u!1 &8891761928386076359
 GameObject:
@@ -419,7 +436,7 @@ MonoBehaviour:
   attackPoint: {fileID: 0}
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 192
   <AttackType>k__BackingField: 0
   showDebugGizmos: 1
 --- !u!1001 &5286520648249121342

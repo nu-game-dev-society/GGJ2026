@@ -4,17 +4,17 @@ using System.Collections.Generic;
 public class AttackController : MonoBehaviour
 {
     [Header("Attack Settings")]
-    [SerializeField] private float attackDamage = 10f;
-    [SerializeField] private float attackRange = 2f;
-    [SerializeField] private float attackAngle = 90f; // Cone angle in degrees
-    [SerializeField] private float knockbackForce = 10f;
-    [SerializeField] private float knockbackUpwardForce = 2f; // Upward component for dynamic feel
-    [SerializeField] private float attackCooldown = 0.5f;
+    [SerializeField] protected float attackDamage = 10f;
+    [SerializeField] protected float attackRange = 2f;
+    [SerializeField] protected float attackAngle = 90f; // Cone angle in degrees
+    [SerializeField] protected float knockbackForce = 10f;
+    [SerializeField] protected float knockbackUpwardForce = 2f; // Upward component for dynamic feel
+    [SerializeField] protected float attackCooldown = 0.5f;
 
     [Header("References")]
     [SerializeField] private Animator animator;
-    [SerializeField] private Transform attackPoint; // Optional: pivot point for attack origin
-    [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] protected Transform attackPoint; // Optional: pivot point for attack origin
+    [SerializeField] protected LayerMask enemyLayer;
 
     [Header("Animation")]
     [field: SerializeField] public AttackType AttackType { get; private set; } = AttackType.None;
@@ -64,44 +64,12 @@ public class AttackController : MonoBehaviour
         DetectAndHitEnemies();
     }
 
-    private void DetectAndHitEnemies()
+    protected virtual void DetectAndHitEnemies()
     {
-        Vector3 attackOrigin = attackPoint.position;
-        Vector3 attackDirection = transform.forward; // Use character's forward direction
-
-        // Get all colliders in range
-        Collider[] hitColliders = Physics.OverlapSphere(attackOrigin, attackRange, enemyLayer);
-
-        List<GameObject> hitEnemies = new List<GameObject>();
-
-        foreach (Collider collider in hitColliders)
-        {
-            // Skip self
-            if (collider.gameObject == gameObject) continue;
-
-            // Check if target is within attack cone
-            Vector3 directionToTarget = (collider.transform.position - attackPoint.position).normalized;
-
-            // Calculate angle on the horizontal plane (XZ) for top-down style games
-            Vector3 attackDirFlat = new Vector3(attackDirection.x, 0, attackDirection.z).normalized;
-            Vector3 targetDirFlat = new Vector3(directionToTarget.x, 0, directionToTarget.z).normalized;
-
-            float angleToTarget = Vector3.Angle(attackDirFlat, targetDirFlat);
-
-            if (angleToTarget <= attackAngle / 2f)
-            {
-                hitEnemies.Add(collider.gameObject);
-
-                // Apply damage
-                ApplyDamage(collider.gameObject);
-
-                // Apply knockback
-                ApplyKnockback(collider, directionToTarget);
-            }
-        }
+        
     }
 
-    private void ApplyDamage(GameObject target)
+    protected void ApplyDamage(GameObject target)
     {
         // Try to find health component (you can adjust this based on your health system)
         var healthComponent = target.GetComponent<IHealth>();
@@ -113,7 +81,7 @@ public class AttackController : MonoBehaviour
 
     }
 
-    private void ApplyKnockback(Collider target, Vector3 direction)
+    protected void ApplyKnockback(Collider target, Vector3 direction)
     {
         Rigidbody rb = target.GetComponent<Rigidbody>();
         if (rb != null)

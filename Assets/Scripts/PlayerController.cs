@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [Header("Input actions")]
     [SerializeField] private string moveInputActionName = "Move";
     [SerializeField] private string jumpInputActionName = "Jump";
+    [SerializeField] private string attackInputActionName = "Attack";
 
     [Header("Attack Controllers")]
     [SerializeField] private List<AttackController> attackControllers = new();
@@ -51,6 +52,11 @@ public class PlayerController : MonoBehaviour
     {
         Jump();
     }
+
+    private void OnAttackPerformed(CallbackContext ctx)
+    {
+        Attack();
+    }
     #endregion
 
     #region Unity Methods
@@ -71,6 +77,7 @@ public class PlayerController : MonoBehaviour
         input.actions[moveInputActionName].canceled += OnMoveCancelled;
 
         input.actions[jumpInputActionName].performed += OnJumpPerformed;
+        input.actions[attackInputActionName].performed += OnAttackPerformed;
     }
 
     private void OnDisable()
@@ -79,6 +86,7 @@ public class PlayerController : MonoBehaviour
         input.actions[moveInputActionName].canceled -= OnMoveCancelled;
 
         input.actions[jumpInputActionName].performed -= OnJumpPerformed;
+        input.actions[attackInputActionName].performed -= OnAttackPerformed;
     }
 
     private void Update()
@@ -132,6 +140,16 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Move", move.magnitude);
     }
 
+    private void Attack()
+    {
+        if (this.activeAttackController == null)
+        {
+            Debug.LogError($"Failed to attack - {nameof(activeAttackController)} was null!");
+            return;
+        }
+        this.activeAttackController.PerformAttack();
+    }
+
     private void Jump()
     {
         if (controller.isGrounded)
@@ -152,10 +170,21 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("YVel", controller.velocity.y);
     }
 
-    public void OnMaskEquipped(AttackType mask)
+    public void OnMaskEquipped(MaskData mask)
     {
-        this.activeAttackController.gameObject.SetActive(false);
-        this.attackControllersKeyedByMask[mask].gameObject.SetActive(true);
+        if (this.activeAttackController != null)
+        {
+            this.activeAttackController.enabled = false;
+        }
+
+        if (this.attackControllersKeyedByMask.TryGetValue(mask.attackType, out this.activeAttackController))
+        {
+            this.activeAttackController.enabled = true;
+        }
+        else
+        {
+            Debug.LogError($"Failed to find attack controller for {mask.attackType}");
+        }
     }
 
     /// <summary>
