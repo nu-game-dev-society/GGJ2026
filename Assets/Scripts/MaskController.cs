@@ -51,7 +51,7 @@ public class MaskController : MonoBehaviour
         // playerController.OnMaskEquipped(maskData.AttackType);
     }
 
-    private void RemoveMask()
+    public void RemoveMask()
     {
         if (currentMask == null) return;
 

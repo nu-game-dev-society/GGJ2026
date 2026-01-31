@@ -1,5 +1,6 @@
 
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerHealthController : MonoBehaviour, IHealth
 {
@@ -11,6 +12,11 @@ public class PlayerHealthController : MonoBehaviour, IHealth
     public float RegenTime { get; set; } = 5.0f;
     [field: SerializeField]
     public float RegenRate { get; set; } = 0.5f;
+    [field: SerializeField]
+    public float StunDuration { get; set; } = 3.0f; // How long to stun when health reaches 0
+
+    [Header("Events")]
+    [SerializeField] private UnityEvent<float> onHealthDepleted; // Passes stun duration
 
     [field: SerializeField]
     public float Health { get; private set; }
@@ -34,6 +40,13 @@ public class PlayerHealthController : MonoBehaviour, IHealth
     {
         Health -= damage;
         LastHitReceivedTime = Time.time;
+
+        if (Health <= 0)
+        {
+            // Stun the player when health reaches 0
+            Health = 0; // Clamp to 0
+            onHealthDepleted?.Invoke(StunDuration);
+        }
     }
 
     public void Heal(float amount)
