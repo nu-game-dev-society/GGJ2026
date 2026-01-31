@@ -189,7 +189,7 @@ MonoBehaviour:
   affectedLayers:
     serializedVersion: 2
     m_Bits: 192
-  explosionParticles: {fileID: 4070067522529160225, guid: 3eeb211de8d6ec146871748cbb932937, type: 3}
+  explosionParticles: {fileID: 19896956, guid: 5ea442f5d97b58843a80992f3d61e220, type: 3}
   audioSource: {fileID: 3430021939505901292}
   explosionSound: {fileID: 8300000, guid: bc1944028e212af4a9238a554812b148, type: 3}
   destroyAfterExplosion: 1
