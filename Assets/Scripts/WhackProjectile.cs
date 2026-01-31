@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections.Generic;
 
 public class WhackProjectile : MonoBehaviour
@@ -8,6 +9,8 @@ public class WhackProjectile : MonoBehaviour
     [SerializeField] private float knockbackForce = 10f;
     [SerializeField] private float knockbackUpwardForce = 2f;
     [SerializeField] protected float characterControllerKnockbackMultiplier = 5f;
+
+    public event Action<Collision> Collided;
 
     public float Damage { get; set; }
 
@@ -20,6 +23,11 @@ public class WhackProjectile : MonoBehaviour
                 Physics.IgnoreCollision(myCollider, colliderToIgnore);
             }
         }
+
+        if (rigidBody == null)
+        {
+            rigidBody = GetComponent<Rigidbody>();
+        }
         rigidBody.linearVelocity = direction.normalized * speed;
     }
 
@@ -29,6 +37,8 @@ public class WhackProjectile : MonoBehaviour
 
         ApplyDamage(other.gameObject);
         ApplyKnockback(other.gameObject, (other.transform.position - transform.position).normalized);
+
+        Collided?.Invoke(other);
     }
 
     private void ApplyDamage(GameObject victim)
@@ -43,7 +53,6 @@ public class WhackProjectile : MonoBehaviour
 
     private void ApplyKnockback(GameObject target, Vector3 direction)
     {
-
         Debug.Log($"ApplyKnockback({target.name})");
         Rigidbody rb = target.GetComponent<Rigidbody>();
         Vector3 knockbackDirection = new Vector3(direction.x, 0, direction.z).normalized;

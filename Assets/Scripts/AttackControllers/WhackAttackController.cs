@@ -9,6 +9,7 @@ public class WhackAttackController : AttackController
     [SerializeField] private float projectileSpeed = 10f;
     [SerializeField] private float projectileFireDelayInSeconds = 0.5f;
     [SerializeField] private float projectileLifetimeInSeconds = 5f;
+    [SerializeField] private float projectileLifetimeAfterValidCollision = 1f;
 
     public override AttackType AttackType => AttackType.Whack;
 
@@ -31,12 +32,19 @@ public class WhackAttackController : AttackController
         projectile.Damage = this.attackDamage;
         projectile.Launch(ignoreCollisions.SelectMany(go => go.GetComponentsInChildren<Collider>()).ToArray(), transform.forward, projectileSpeed);
 
-        IEnumerator DestroyProjectileDelayed()
+        IEnumerator ResetProjectileDelayed(float secondsToWait)
         {
-            yield return new WaitForSeconds(projectileLifetimeInSeconds);
+            yield return new WaitForSeconds(secondsToWait);
             Destroy(projectile.gameObject);
         }
 
-        StartCoroutine(DestroyProjectileDelayed());
+        void OnCollided(Collision other)
+        {
+            StartCoroutine(ResetProjectileDelayed(projectileLifetimeAfterValidCollision));
+        }
+
+        projectile.Collided += OnCollided;
+
+        StartCoroutine(ResetProjectileDelayed(projectileLifetimeInSeconds));
     }
 }
