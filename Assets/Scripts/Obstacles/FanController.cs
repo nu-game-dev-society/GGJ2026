@@ -37,6 +37,7 @@ public class FanController : MonoBehaviour
 
 
     public Vector3 Direction;
+    public Vector3 RotateDirection;
     private void Start()
     {
         isOn = startOn;
@@ -59,7 +60,7 @@ public class FanController : MonoBehaviour
             float currentForce = fanForce * forceFalloff;
 
             // Apply upward force - momentum is automatically conserved
-            rb.AddForce(transform.up * currentForce, ForceMode.Force);
+            rb.AddForce(Direction * currentForce, ForceMode.Force);
         }
     }
 
@@ -72,7 +73,7 @@ public class FanController : MonoBehaviour
         // Rotate fan blades
         if (fanBladesTransform != null)
         {
-            fanBladesTransform.Rotate(Direction, currentRotationSpeed * Time.deltaTime, Space.Self);
+            fanBladesTransform.Rotate(RotateDirection, currentRotationSpeed * Time.deltaTime, Space.Self);
         }
 
         if (!isOn) return;
