@@ -59,15 +59,6 @@ public class PlayerController : MonoBehaviour
         input.actions[jumpInputActionName].performed -= OnJumpPerformed;
     }
 
-    void OnPlayerJoined(PlayerInput player)
-    {
-        Debug.Log(player);
-        if (player.playerIndex == 0)
-            player.SwitchCurrentControlScheme("KeyboardLeft", Keyboard.current);
-        else
-            player.SwitchCurrentControlScheme("KeyboardRight", Keyboard.current);
-    }
-
     private void Update()
     {
         Move();

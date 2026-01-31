@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1626164673053902193}
   - component: {fileID: 7199584654887734480}
-  - component: {fileID: 1776952742306402716}
   m_Layer: 0
   m_Name: LocalMultiplayerManager
   m_TagString: Untagged
@@ -67,7 +66,7 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
     m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 0}
+  m_PlayerPrefab: {fileID: 844825012498914322, guid: b3a8bd04f112d9c4c84b561c557fb6c5, type: 3}
   m_SplitScreen: 0
   m_MaintainAspectRatioInSplitScreen: 0
   m_FixedNumberOfSplitScreens: -1
@@ -77,16 +76,3 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &1776952742306402716
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4434820192967293502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d885002b608fa3b4caf5a3a88b43d3df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputManager: {fileID: 7199584654887734480}
