@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2796388807074842704}
   - component: {fileID: 9043877671999744338}
   - component: {fileID: 3430021939505901292}
+  - component: {fileID: 4573573727011687642}
   m_Layer: 7
   m_Name: Barrel 1
   m_TagString: Untagged
@@ -122,7 +123,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6355997413962890389}
   serializedVersion: 5
-  m_Mass: 1.5
+  m_Mass: 2
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -158,17 +159,17 @@ MonoBehaviour:
   <OnDeath>k__BackingField:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9043877671999744338}
-        m_TargetAssemblyTypeName: Explosion, Assembly-CSharp
-        m_MethodName: Explode
-        m_Mode: 1
+      - m_Target: {fileID: 4573573727011687642}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &9043877671999744338
 MonoBehaviour:
@@ -185,6 +186,7 @@ MonoBehaviour:
   explosionRadius: 5
   explosionForce: 500
   upwardModifier: 1
+  characterControllerForceMultiplier: 3
   damage: 50
   affectedLayers:
     serializedVersion: 2
@@ -292,3 +294,47 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4573573727011687642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6355997413962890389}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b360a7655dd88534b869018d3d6712a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashDuration: 3
+  flashSpeed: 5
+  targetRenderer: {fileID: 3361954799640695819}
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  colorPropertyName: _BaseColor
+  onTimerComplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4573573727011687642}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 9043877671999744338}
+        m_TargetAssemblyTypeName: Explosion, Assembly-CSharp
+        m_MethodName: Explode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
