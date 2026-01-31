@@ -19,7 +19,7 @@ public class PlayerHealthController : MonoBehaviour, IHealth
     [SerializeField] private UnityEvent<float> onHealthDepleted; // Passes stun duration
 
     [field: SerializeField]
-    public float Health { get; private set; }
+    public float Health { get; set; }
     [field: SerializeField]
     public float LastHitReceivedTime { get; private set; }
 

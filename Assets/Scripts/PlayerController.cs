@@ -1,8 +1,8 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
-
-using System.Collections.Generic;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInput))]
@@ -47,10 +47,14 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public Color playerColor;
 
+    [Header("Events")]
+    public UnityEvent OnPlayerKilled;
+
     #region Input callbacks
     private void OnMovePerformed(CallbackContext ctx)
     {
         moveInput = ctx.ReadValue<Vector2>();
+        Debug.Log("Move performed" + moveInput);
     }
 
     private void OnMoveCancelled(CallbackContext ctx)
@@ -98,6 +102,7 @@ public class PlayerController : MonoBehaviour
         input.actions[jumpInputActionName].performed -= OnJumpPerformed;
         input.actions[attackInputActionName].performed -= OnAttackPerformed;
     }
+
     private void Start()
     {
         markerRenderer.material = new Material(markerRenderer.material);
@@ -293,6 +298,8 @@ public class PlayerController : MonoBehaviour
     public void Kill()
     {
         Debug.Log($"Player {name} died!");
+
+        OnPlayerKilled.Invoke();
 
         // TODO: Implement proper death/respawn/elimination system
         // For now, just disable the player

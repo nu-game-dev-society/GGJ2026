@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,6 +8,7 @@ using UnityEngine.InputSystem;
 public class MultiplayerManager : MonoBehaviour
 {
     [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private int respawnTime = 5;
     [SerializeField] private Transform[] spawnLocations;
 
     private PlayerInputManager inputManager;
@@ -86,7 +88,12 @@ public class MultiplayerManager : MonoBehaviour
                 playerObj.name = $"Player{playerInput.playerIndex}";
 
                 // Set color
-                playerObj.GetComponent<PlayerController>().playerColor = Color.HSVToRGB((playerInput.playerIndex * 0.618034f) % 1f, 1f, 1f);
+                PlayerController controller = playerObj.GetComponent<PlayerController>();
+                controller.playerColor = Color.HSVToRGB((playerInput.playerIndex * 0.618034f) % 1f, 1f, 1f);
+                controller.OnPlayerKilled.AddListener(() =>
+                {
+                    StartCoroutine(RespawnPlayer(playerObj, controlScheme, device));
+                });
 
                 // Switch to the correct control scheme and pair with device
                 playerInput.SwitchCurrentControlScheme(controlScheme, device);
@@ -103,6 +110,21 @@ public class MultiplayerManager : MonoBehaviour
                 OnPlayerJoined(playerInput);
             }
         }
+    }
+
+    private IEnumerator RespawnPlayer(GameObject playerObj, string controlScheme, InputDevice device)
+    {
+        yield return new WaitForSeconds(respawnTime);
+
+        var playerInput = playerObj.GetComponent<PlayerInput>();
+
+        playerObj.transform.position = findBestSpawnLocation();
+        playerObj.SetActive(true);
+
+        // Re-enable input
+        playerInput.SwitchCurrentControlScheme(controlScheme, device);
+        playerInput.actions.Enable();
+        playerInput.ActivateInput();
     }
 
     // Called when a player joins

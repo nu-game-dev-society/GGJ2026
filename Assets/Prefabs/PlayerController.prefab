@@ -95,6 +95,33 @@ MonoBehaviour:
   input: {fileID: 5083259849083502680}
   markerRenderer: {fileID: 7531692700580125332}
   playerColor: {r: 0, g: 0, b: 0, a: 0}
+  OnPlayerKilled:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3907916193161849882}
+        m_TargetAssemblyTypeName: MaskController, Assembly-CSharp
+        m_MethodName: RemoveMask
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8477019450006818304}
+        m_TargetAssemblyTypeName: PlayerHealthController, Assembly-CSharp
+        m_MethodName: Heal
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 9999
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5083259849083502680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,6 +223,10 @@ MonoBehaviour:
   <MaxHealth>k__BackingField: 10
   <RegenTime>k__BackingField: 5
   <RegenRate>k__BackingField: 0.5
+  <StunDuration>k__BackingField: 3
+  onHealthDepleted:
+    m_PersistentCalls:
+      m_Calls: []
   <Health>k__BackingField: 0
   <LastHitReceivedTime>k__BackingField: 0
 --- !u!1 &2331426152024093782
@@ -262,6 +293,7 @@ MonoBehaviour:
   projectileSpeed: 10
   projectileFireDelayInSeconds: 0.5
   projectileLifetimeInSeconds: 5
+  projectileLifetimeAfterValidCollision: 1
 --- !u!1 &3955116283758542499
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,6 +614,7 @@ MonoBehaviour:
   projectileSpeed: 20
   projectileFireDelayInSeconds: 0.5
   projectileLifetimeInSeconds: 5
+  projectileLifetimeAfterValidCollision: 1
 --- !u!1 &8891761928386076359
 GameObject:
   m_ObjectHideFlags: 0
