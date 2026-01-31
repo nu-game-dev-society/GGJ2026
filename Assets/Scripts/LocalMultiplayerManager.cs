@@ -2,58 +2,91 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Video;
+using System.Linq;
+using System;
+
+public class InputControlObserver : IObserver<InputControl>
+{
+    private readonly Action<InputControl> _onNext;
+
+    public InputControlObserver(Action<InputControl> onNext)
+    {
+        _onNext = onNext;
+    }
+
+    public void OnCompleted() { }
+    public void OnError(Exception error) { }
+    public void OnNext(InputControl value)
+    {
+        _onNext?.Invoke(value);
+    }
+}
 
 public class LocalMultiplayerManager : MonoBehaviour
 {
     [SerializeField] private PlayerInputManager inputManager;
 
+    //1st should be the default
     [SerializeField] private List<string> keyboardControlSchemeNames = new();
     [SerializeField] private List<GameObject> keyboardControlledPlayers = new();
 
+    private IReadOnlyList<InputControlScheme> keyboardControlSchemes;
+    private InputActionAsset inputActionAsset;
+
     private void Awake()
     {
-        inputManager.onPlayerJoined += OnPlayerJoined;
+        this.inputActionAsset = inputManager.playerPrefab.GetComponent<PlayerInput>().actions;
+        this.inputManager.onPlayerJoined += OnPlayerJoined;
+
+        this.keyboardControlSchemes = keyboardControlSchemeNames
+            .Select(name => this.inputActionAsset.FindControlScheme(name))
+            .Where(scheme => scheme.HasValue)
+            .Select(scheme => scheme.Value)
+            .ToArray();
     }
 
-    void Update()
+    private void OnEnable()
     {
-        var keyboard = Keyboard.current;
-        if (keyboard == null) return;
+        StartListeningForButtonPressFromAlternateKeyboardControlSchemes();
+    }
 
-        // Read Input Actions asset for Keyboard_P2 bindings
-        // For example, "Move" action in Player2 map
-        var inputActions = inputManager.playerPrefab.GetComponent<PlayerInput>().actions;
-        var player2ControlScheme = inputActions.FindControlScheme("KeyboardRight");
-        Debug.Log(player2ControlScheme);
-
-        foreach (var map in inputActions.actionMaps)
+    private void StartListeningForButtonPressFromAlternateKeyboardControlSchemes()
+    {
+        InputSystem.onAnyButtonPress.Subscribe(new InputControlObserver((control) =>
         {
-            foreach (var action in map.actions)
-            {
-                // Check if action has any binding in this control scheme
-                foreach (var binding in action.bindings)
-                {
-                    if (binding.groups.Contains(player2ControlScheme.Value.name))
-                    {
-                        // Get the bound control
-                        var control = action.controls.Count > 0 ? action.controls[0] : null;
+            Debug.Log("Got input");
 
-                        // Check if pressed
-                        if (control != null && control.IsPressed())
-                        {
-                            // Spawn Player2 with this control scheme
-                            PlayerInput.Instantiate(
-                                inputManager.playerPrefab,
-                                playerIndex: 1,
-                                controlScheme: player2ControlScheme.Value.name,
-                                pairWithDevice: keyboard
-                            );
-                            return;
-                        }
+            // Only care about keyboards
+            if (control.device is not Keyboard keyboard) {
+                Debug.Log("Not keyboard " + control.device);
+                return;
+            }
+
+            foreach (var scheme in inputActionAsset.controlSchemes)
+            {
+                foreach (var dev in scheme.deviceRequirements)
+                {
+                    if (dev == control.device) 
+                    {
+                        Debug.Log($"Control scheme: {scheme.name}");
+                        break;
                     }
                 }
             }
-        }
+            
+            // Try joining a new player for this keyboard
+            foreach (var scheme in keyboardControlSchemes.Skip(1)) // skip default
+            {
+                PlayerInput.Instantiate(
+                    inputManager.playerPrefab,
+                    controlScheme: scheme.name,
+                    pairWithDevice: control.device
+                );
+
+                Debug.Log($"Joined new player with scheme '{scheme.name}' and device '{keyboard.displayName}'");
+                break;
+            }
+        }));
     }
 
     private void OnPlayerJoined(PlayerInput player)
