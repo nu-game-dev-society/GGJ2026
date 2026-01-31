@@ -124,6 +124,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: c6ef462144401440ea14d1d9478d3bd5, type: 2}
+    - target: {fileID: -4341934344273958654, guid: 16c52f11e6bab4dd8b8519862e68d434, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ddbd4ca79534047b48bce4c1b65ad118, type: 2}
     - target: {fileID: -4214114618259351499, guid: 16c52f11e6bab4dd8b8519862e68d434, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -164,6 +168,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 351143485562056215, guid: 16c52f11e6bab4dd8b8519862e68d434, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 16c52f11e6bab4dd8b8519862e68d434, type: 3}
       propertyPath: m_Name
       value: MaskBean
@@ -192,6 +200,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[5]'
       value: 
       objectReference: {fileID: 2100000, guid: 59dba4ea1642a4cfe9d95e76aa57d1bb, type: 2}
+    - target: {fileID: 1957266947348380971, guid: 16c52f11e6bab4dd8b8519862e68d434, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ddbd4ca79534047b48bce4c1b65ad118, type: 2}
     - target: {fileID: 1958220849355160709, guid: 16c52f11e6bab4dd8b8519862e68d434, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -200,6 +212,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4919314777242526600, guid: 16c52f11e6bab4dd8b8519862e68d434, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0a1fe4cc5e29f4f7aa3bff47dbe597c1, type: 2}
+    - target: {fileID: 4919314777242526600, guid: 16c52f11e6bab4dd8b8519862e68d434, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8950a57dbd12745649802004b6f86939, type: 2}
     - target: {fileID: 6342776937630022979, guid: 16c52f11e6bab4dd8b8519862e68d434, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -219,5 +239,35 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 16c52f11e6bab4dd8b8519862e68d434, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2128266190293571370}
   m_SourcePrefab: {fileID: 100100000, guid: 16c52f11e6bab4dd8b8519862e68d434, type: 3}
+--- !u!1 &6681619386832178984 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 16c52f11e6bab4dd8b8519862e68d434, type: 3}
+  m_PrefabInstance: {fileID: 5798534876717380217}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2128266190293571370
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6681619386832178984}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 645fa8640fe31469994c7e2ef010b55f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
