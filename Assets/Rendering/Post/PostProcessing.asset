@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b2db86121404754db890f4c8dfe81b2, type: 3}
   m_Name: Bloom
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   skipIterations:
     m_OverrideState: 0
     m_Value: 1
   threshold:
     m_OverrideState: 1
-    m_Value: 0.84
+    m_Value: 3.49
   intensity:
     m_OverrideState: 1
-    m_Value: 2.25
+    m_Value: 1.21
   scatter:
     m_OverrideState: 1
     m_Value: 0.072
@@ -30,7 +30,7 @@ MonoBehaviour:
     m_Value: 65472
   tint:
     m_OverrideState: 1
-    m_Value: {r: 0.9731885, g: 0.6367924, b: 1, a: 1}
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
   highQualityFiltering:
     m_OverrideState: 0
     m_Value: 0
@@ -68,7 +68,7 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.357
+    m_Value: 0.449
   smoothness:
     m_OverrideState: 1
     m_Value: 0.509
@@ -243,8 +243,8 @@ MonoBehaviour:
           inWeight: 0
           outWeight: 0
         - serializedVersion: 3
-          time: 0.76706094
-          value: 0.56679034
+          time: 0.6864608
+          value: 0.73
           inSlope: 1.1445432
           outSlope: 1.1445432
           tangentMode: 0
