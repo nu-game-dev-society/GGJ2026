@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using System;
 
 public class MultiplayerManager : MonoBehaviour
 {
     [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private float playerSpawnOffset = 2f;
+    [SerializeField] private Transform[] spawnLocations;
 
     private PlayerInputManager inputManager;
     private bool keyboardLeftJoined = false;
@@ -101,10 +102,36 @@ public class MultiplayerManager : MonoBehaviour
         Debug.Log($"Player {playerInput.playerIndex} joined with {playerInput.currentControlScheme}");
 
         // Position players side by side
-        Vector3 spawnPosition = new Vector3(playerInput.playerIndex * playerSpawnOffset, 1f, 0f);
+        Vector3 spawnPosition = findBestSpawnLocation();
         playerInput.transform.position = spawnPosition;
 
         // Debug: Print active actions
         Debug.Log($"Actions enabled: {playerInput.actions.enabled}, Current action map: {playerInput.currentActionMap?.name}");
+    }
+
+    private Vector3 findBestSpawnLocation()
+    {
+        float maxDistance = -1f;
+        Vector3 bestLocation = Vector3.zero;
+        foreach (var spawn in spawnLocations)
+        {
+            float distanceToClosestPlayer = float.MaxValue;
+            foreach (var player in PlayerInput.all)
+            {
+                float dist = Vector3.Distance(spawn.position, player.transform.position);
+                if (dist < distanceToClosestPlayer)
+                {
+                    distanceToClosestPlayer = dist;
+                }
+            }
+
+            if (distanceToClosestPlayer > maxDistance)
+            {
+                maxDistance = distanceToClosestPlayer;
+                bestLocation = spawn.position;
+            }
+        }
+
+        return bestLocation;
     }
 }
