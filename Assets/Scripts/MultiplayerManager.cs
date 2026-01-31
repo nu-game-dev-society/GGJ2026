@@ -1,7 +1,8 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections.Generic;
-using System;
 
 public class MultiplayerManager : MonoBehaviour
 {
@@ -71,8 +72,10 @@ public class MultiplayerManager : MonoBehaviour
     {
         if (playerPrefab != null)
         {
+            Vector3 spawnPosition = findBestSpawnLocation();
+
             // Instantiate the player GameObject
-            GameObject playerObj = Instantiate(playerPrefab);
+            GameObject playerObj = Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
 
             // Get the PlayerInput component
             var playerInput = playerObj.GetComponent<PlayerInput>();
@@ -107,22 +110,38 @@ public class MultiplayerManager : MonoBehaviour
     {
         Debug.Log($"Player {playerInput.playerIndex} joined with {playerInput.currentControlScheme}");
 
-        // Position players side by side
-        Vector3 spawnPosition = findBestSpawnLocation();
-        playerInput.transform.position = spawnPosition;
-
         // Debug: Print active actions
         Debug.Log($"Actions enabled: {playerInput.actions.enabled}, Current action map: {playerInput.currentActionMap?.name}");
     }
 
     private Vector3 findBestSpawnLocation()
     {
+        // Safety check
+        if (spawnLocations == null || spawnLocations.Length == 0)
+        {
+            Debug.LogError("No spawn locations defined!");
+            return Vector3.zero;
+        }
+
+        // If no active players exist, use the first spawn
+        var activePlayers = PlayerInput.all
+            .Where(p => p != null && p.gameObject != null && p.gameObject.activeSelf)
+            .ToList();
+
+        if (activePlayers.Count == 0)
+        {
+            Debug.Log("First player spawning at first location");
+            return spawnLocations[0].position;
+        }
+
         float maxDistance = -1f;
-        Vector3 bestLocation = Vector3.zero;
+        Vector3 bestLocation = spawnLocations[0].position; // Start with first spawn as default
+
         foreach (var spawn in spawnLocations)
         {
             float distanceToClosestPlayer = float.MaxValue;
-            foreach (var player in PlayerInput.all)
+
+            foreach (var player in activePlayers)
             {
                 float dist = Vector3.Distance(spawn.position, player.transform.position);
                 if (dist < distanceToClosestPlayer)
