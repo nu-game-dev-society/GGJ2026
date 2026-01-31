@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
 
+using System.Collections.Generic;
+
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
@@ -16,10 +18,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private string moveInputActionName = "Move";
     [SerializeField] private string jumpInputActionName = "Jump";
 
-    [Header("Other")]
-    [SerializeField] private Camera cameraCached;
+    [Header("Attack Controllers")]
+    [SerializeField] private List<AttackController> attackControllers = new();
+    private Dictionary<AttackType, AttackController> attackControllersKeyedByMask = new();
+    private AttackController activeAttackController;
 
-    [Header("Required components")]
+    [Header("Soft-Required components")]
+    [SerializeField] private Camera cameraCached;
+    [SerializeField] Animator animator;
+
+    [Header("Hard-Required Components")]
     [SerializeField] private CharacterController controller;
     [SerializeField] private PlayerInput input;
     #endregion
@@ -49,6 +57,13 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         cameraCached = Camera.main;
+
+        foreach (var attackController in attackControllers)
+        {
+            attackControllersKeyedByMask.Add(attackController.AttackType, attackController);
+        }
+
+        activeAttackController = attackControllersKeyedByMask[AttackType.None];
     }
  
     private void OnEnable()
@@ -73,7 +88,7 @@ public class PlayerController : MonoBehaviour
         ApplyGravity();
     }
     #endregion
-[SerializeField] Animator animator;
+
     private void Move()
     {
         // Get camera relative directions
@@ -122,5 +137,12 @@ public class PlayerController : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+        animator.SetFloat("YVel", controller.velocity.y);
+    }
+
+    public void OnMaskEquipped(AttackType mask)
+    {
+        this.activeAttackController.gameObject.SetActive(false);
+        this.attackControllersKeyedByMask[mask].gameObject.SetActive(true);
     }
 }

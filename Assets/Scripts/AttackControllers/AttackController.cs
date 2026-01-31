@@ -17,7 +17,7 @@ public class AttackController : MonoBehaviour
     [SerializeField] private LayerMask enemyLayer;
 
     [Header("Animation")]
-    [SerializeField] private string attackAnimationTrigger = "Attack";
+    [field: SerializeField] public AttackType AttackType { get; private set; } = AttackType.None;
 
     [Header("Debug")]
     [SerializeField] private bool showDebugGizmos = true;
@@ -55,9 +55,9 @@ public class AttackController : MonoBehaviour
         lastAttackTime = Time.time;
 
         // Trigger animation
-        if (animator != null)
+        if (animator != null && AttackType != AttackType.None)
         {
-            animator.SetTrigger(attackAnimationTrigger);
+            animator.SetTrigger(AttackType.ToString());
         }
 
         // Detect and damage enemies in cone

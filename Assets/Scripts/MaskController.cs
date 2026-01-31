@@ -5,6 +5,7 @@ public class MaskController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform maskAttachPoint; // Where the mask attaches to the player's face
+    [SerializeField] private PlayerController playerController;
 
     [Header("Current Mask")]
     [SerializeField] private MaskData currentMask;
@@ -21,7 +22,7 @@ public class MaskController : MonoBehaviour
         healthComponent = GetComponent<IHealth>();
     }
 
-    public void EquipMask(MaskData maskData)
+    private void EquipMask(MaskData maskData)
     {
         if (maskData == null) return;
 
@@ -43,9 +44,12 @@ public class MaskController : MonoBehaviour
         ApplyMaskProperties();
 
         OnMaskEquipped?.Invoke(maskData);
+
+        // ryan needs to connect this to make it compile
+        // playerController.OnMaskEquipped(maskData.AttackType);
     }
 
-    public void RemoveMask()
+    private void RemoveMask()
     {
         if (currentMask == null) return;
 
