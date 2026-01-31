@@ -9,6 +9,7 @@ public class Fall : MonoBehaviour
     private Vector3 start;
     private Vector3 end;
     private float time;
+    private Action onFinish;
 
     private float totalTime;
 
@@ -29,16 +30,19 @@ public class Fall : MonoBehaviour
         // If we are finished then remove ourself
         if (smoothed >= 1f)
         {
+            onFinish();
             Destroy(this);
         }
     }
 
-    internal void Setup(AnimationCurve curve, Vector3 start, Vector3 end, float time)
+    internal void Setup(AnimationCurve curve, Vector3 start, Vector3 end, float time, Action onFinish)
     {
         this.curve = curve;
         this.start = start;
         this.end = end;
         this.time = time;
+        this.onFinish = onFinish;
+
         this.totalTime = 0;
     }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7008188910399235928}
   - component: {fileID: 4193688133486753210}
   m_Layer: 0
-  m_Name: ExampleMask
+  m_Name: ExampleMask2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,7 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ddec9623ee8f954faf263007f9ff787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maskData: {fileID: 11400000, guid: a3b510f12b034ce4b94aab111356b338, type: 2}
+  maskData: {fileID: 11400000, guid: 170d793454a0b804cbe2f7ecc32bc09b, type: 2}
   rotationSpeed: 50
   bobSpeed: 2
   bobHeight: 0.3
@@ -101,7 +101,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7237176846333552138}
@@ -113,7 +113,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7863374727736284163}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &3773318472941508862
 MeshRenderer:
   m_ObjectHideFlags: 0
