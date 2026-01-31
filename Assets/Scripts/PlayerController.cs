@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private string moveInputActionName = "Move";
     [SerializeField] private string jumpInputActionName = "Jump";
 
+    [Header("Other")]
+    [SerializeField] private Camera cameraCached;
+
     [Header("Required components")]
     [SerializeField] private CharacterController controller;
     [SerializeField] private PlayerInput input;
@@ -42,6 +45,11 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Unity Methods
+
+    private void Awake()
+    {
+        cameraCached = Camera.main;
+    }
  
     private void OnEnable()
     {
@@ -65,11 +73,36 @@ public class PlayerController : MonoBehaviour
         ApplyGravity();
     }
     #endregion
-
+[SerializeField] Animator animator;
     private void Move()
     {
-        Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
+        // Get camera relative directions
+        Vector3 camForward = cameraCached.transform.forward;
+        Vector3 camRight = cameraCached.transform.right;
+
+        // Flatten camera directions to ignore vertical tilt
+        camForward.y = 0f;
+        camRight.y = 0f;
+        camForward.Normalize();
+        camRight.Normalize();
+
+        // Calculate movement relative to camera
+        Vector3 move = camRight * moveInput.x + camForward * moveInput.y;
+        move.Normalize();
+
+        // Rotate the player to face movement direction
+        if (move.sqrMagnitude > 0.01f)
+        {
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                Quaternion.LookRotation(move),
+                10f * Time.deltaTime // rotation speed
+            );
+        }
+
         controller.Move(moveSpeed * Time.deltaTime * move);
+
+        animator.SetFloat("Move", move.magnitude);
     }
 
     private void Jump()
