@@ -80,7 +80,7 @@ public class AttackController : MonoBehaviour
 
     }
 
-    protected void ApplyKnockback(Collider target, Vector3 direction)
+    protected  void ApplyKnockback(Collider target, Vector3 direction)
     {
         Rigidbody rb = target.GetComponent<Rigidbody>();
         if (rb != null)
