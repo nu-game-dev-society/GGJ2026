@@ -393,8 +393,8 @@ MonoBehaviour:
   attackDamage: 10
   attackRange: 3
   attackAngle: 60
-  knockbackForce: 10
-  knockbackUpwardForce: 2
+  knockbackForce: 5
+  knockbackUpwardForce: 5
   characterControllerKnockbackMultiplier: 2
   attackCooldown: 0.5
   ignoreCollisions:
