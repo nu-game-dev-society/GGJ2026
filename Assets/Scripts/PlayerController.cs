@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 moveInput;
     private Vector3 velocity;
+    private Vector3 externalForce; // Forces from rollers, conveyor belts, etc.
 
     #region Input callbacks
     private void OnMovePerformed(CallbackContext ctx)
@@ -71,6 +72,19 @@ public class PlayerController : MonoBehaviour
     {
         Move();
         ApplyGravity();
+        ApplyExternalForces();
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        // Check if we hit a roller pusher
+        RollerPusher roller = hit.gameObject.GetComponent<RollerPusher>();
+        if (roller != null)
+        {
+            // Get push force from the roller based on contact point
+            Vector3 pushForce = roller.GetPushForce(hit.point);
+            ApplyExternalForce(pushForce);
+        }
     }
     #endregion
 [SerializeField] Animator animator;
@@ -122,7 +136,42 @@ public class PlayerController : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+    }
 
-        animator.SetFloat("YVel", controller.velocity.y);
-    } 
+    /// <summary>
+    /// Apply external force from rollers, conveyor belts, etc.
+    /// </summary>
+    public void ApplyExternalForce(Vector3 force)
+    {
+        externalForce = force;
+    }
+
+    private void ApplyExternalForces()
+    {
+        if (externalForce.magnitude > 0.01f)
+        {
+            // Apply the external force
+            controller.Move(externalForce * Time.deltaTime);
+
+            // Decay the force quickly so it doesn't accumulate
+            // This allows player to fight against it
+            externalForce = Vector3.Lerp(externalForce, Vector3.zero, 5f * Time.deltaTime);
+        }
+        else
+        {
+            externalForce = Vector3.zero;
+        }
+    }
+
+    /// <summary>
+    /// Called when player dies (e.g., falls into death zone)
+    /// </summary>
+    public void Kill()
+    {
+        Debug.Log($"Player {name} died!");
+
+        // TODO: Implement proper death/respawn/elimination system
+        // For now, just disable the player
+        gameObject.SetActive(false);
+    }
 }
