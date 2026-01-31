@@ -84,8 +84,6 @@ MonoBehaviour:
   attackControllers:
   - {fileID: 5831669736176378397}
   - {fileID: 4181956848470342403}
-  - {fileID: 2427962027602746365}
-  - {fileID: 1636370963515048939}
   cameraCached: {fileID: 0}
   animator: {fileID: 6112616524437261588}
   controller: {fileID: 6167410110698181940}
@@ -231,7 +229,6 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 192
-  <AttackType>k__BackingField: 4
   showDebugGizmos: 1
 --- !u!1 &4478559819594922396
 GameObject:
@@ -288,7 +285,6 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 192
-  <AttackType>k__BackingField: 3
   showDebugGizmos: 1
 --- !u!1 &8537095096174818284
 GameObject:
@@ -345,7 +341,6 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 192
-  <AttackType>k__BackingField: 2
   showDebugGizmos: 1
 --- !u!1 &8891761928386076359
 GameObject:
@@ -437,7 +432,6 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 192
-  <AttackType>k__BackingField: 0
   showDebugGizmos: 1
 --- !u!1001 &5286520648249121342
 PrefabInstance:
