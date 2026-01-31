@@ -86,6 +86,7 @@ MonoBehaviour:
   - {fileID: 5831669736176378397}
   - {fileID: 4181956848470342403}
   - {fileID: 2276398069789234167}
+  - {fileID: 1023764035362239707}
   cameraCached: {fileID: 0}
   animator: {fileID: 6112616524437261588}
   controller: {fileID: 6167410110698181940}
@@ -463,6 +464,68 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 192
   showDebugGizmos: 1
+--- !u!1 &8872422998844270180
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2557898588738664470}
+  - component: {fileID: 1023764035362239707}
+  m_Layer: 0
+  m_Name: WhackAttackController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2557898588738664470
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8872422998844270180}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5680460822004594699}
+  m_Father: {fileID: 5265351012166827682}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1023764035362239707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8872422998844270180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76fa3abe7e1819a46ac8cfbd7640bace, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDamage: 10
+  attackRange: 2
+  attackAngle: 90
+  knockbackForce: 10
+  knockbackUpwardForce: 2
+  characterControllerKnockbackMultiplier: 5
+  attackCooldown: 0.5
+  ignoreCollisions: []
+  animator: {fileID: 6112616524437261588}
+  attackPoint: {fileID: 5680460822004594699}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 192
+  showDebugGizmos: 1
+  projectilePrefab: {fileID: 8254148713983720978, guid: 46ab341be3d8ff5429e92793afbaf888, type: 3}
+  projectileSpeed: 20
+  projectileFireDelayInSeconds: 0.5
 --- !u!1 &8891761928386076359
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,6 +559,7 @@ Transform:
   - {fileID: 4881862182393061683}
   - {fileID: 2847939113305357513}
   - {fileID: 9166109645507889839}
+  - {fileID: 2557898588738664470}
   m_Father: {fileID: 2932215103927743486}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8995860136024873434
