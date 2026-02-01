@@ -254,6 +254,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnMaskUnequip()
+    {
+        if (!this.activeAttackController) return;
+        this.activeAttackController.enabled = false;
+        this.activeAttackController = null;
+    }
+
     /// <summary>
     /// Apply external force from rollers, conveyor belts, etc.
     /// </summary>

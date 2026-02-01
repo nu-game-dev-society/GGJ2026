@@ -922,6 +922,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0d0e98d43d523b4a80d6579639501a6, type: 3}
+--- !u!114 &766239840 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6154083116414158635, guid: c0d0e98d43d523b4a80d6579639501a6, type: 3}
+  m_PrefabInstance: {fileID: 766239839}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2223,6 +2234,10 @@ PrefabInstance:
       propertyPath: <PauseMenu>k__BackingField
       value: 
       objectReference: {fileID: 937784377}
+    - target: {fileID: 6059277349221588547, guid: 525a2c24778f22e43bdd5710afa3bd2f, type: 3}
+      propertyPath: <TrophyImage>k__BackingField
+      value: 
+      objectReference: {fileID: 766239840}
     - target: {fileID: 6059277349221588547, guid: 525a2c24778f22e43bdd5710afa3bd2f, type: 3}
       propertyPath: 'spawnLocations.Array.data[0]'
       value: 
