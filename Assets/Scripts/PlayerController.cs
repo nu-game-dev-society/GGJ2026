@@ -329,6 +329,8 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        moveInput = Vector3.zero;
+
         Debug.Log($"Player {name} died!");
 
         OnPlayerKilled.Invoke();
