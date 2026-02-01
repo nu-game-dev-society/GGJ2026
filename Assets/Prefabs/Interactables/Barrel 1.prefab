@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67251607403120a4c87464f29503af3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MaxHealth>k__BackingField: 35
+  <MaxHealth>k__BackingField: 1
   <Health>k__BackingField: 0
   <OnDeath>k__BackingField:
     m_PersistentCalls:
@@ -192,8 +192,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 192
   explosionParticles: {fileID: 19801716, guid: 07bf9ced87963e24299c2c2a22bfeeb6, type: 3}
-  audioSource: {fileID: 3430021939505901292}
-  explosionSound: {fileID: 8300000, guid: 92d3259b6a9732e4ba3fb95331b2c95d, type: 3}
   destroyAfterExplosion: 1
   destroyDelay: 0
   showDebugGizmos: 1
