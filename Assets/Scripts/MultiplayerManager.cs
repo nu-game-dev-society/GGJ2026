@@ -9,11 +9,14 @@ public class MultiplayerManager : MonoBehaviour
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private int respawnTime = 5;
     [SerializeField] private Transform[] spawnLocations;
+    [SerializeField] private int playerLives = 3;
 
     private PlayerInputManager inputManager;
     private bool keyboardLeftJoined = false;
     private bool keyboardRightJoined = false;
     private HashSet<Gamepad> joinedGamepads = new HashSet<Gamepad>();
+    private Dictionary<GameObject, int> playerLivesRemaining = new Dictionary<GameObject, int>();
+    private bool gameEnded = false;
 
     [field: SerializeField]
     public CanvasGroup PauseMenu { get; set; }
@@ -95,9 +98,16 @@ public class MultiplayerManager : MonoBehaviour
                 // Set color
                 PlayerController controller = playerObj.GetComponent<PlayerController>();
                 controller.playerColor = Color.HSVToRGB((playerInput.playerIndex * 0.618034f) % 1f, 1f, 1f);
+
+                // Initialize player marker with color
+                controller.InitializeMarker();
+
+                // Initialize player lives
+                playerLivesRemaining[playerObj] = playerLives;
+
                 controller.OnPlayerKilled.AddListener(() =>
                 {
-                    StartCoroutine(RespawnPlayer(playerObj, controlScheme, device));
+                    OnPlayerDied(playerObj, controlScheme, device);
                 });
 
                 // Switch to the correct control scheme and pair with device
@@ -117,19 +127,109 @@ public class MultiplayerManager : MonoBehaviour
         }
     }
 
+    private void OnPlayerDied(GameObject playerObj, string controlScheme, InputDevice device)
+    {
+        if (gameEnded) return;
+
+        // Decrement lives
+        if (playerLivesRemaining.ContainsKey(playerObj))
+        {
+            playerLivesRemaining[playerObj]--;
+            int livesLeft = playerLivesRemaining[playerObj];
+
+            Debug.Log($"{playerObj.name} died. Lives remaining: {livesLeft}");
+
+            // Update player marker to show lost life
+            PlayerController controller = playerObj.GetComponent<PlayerController>();
+            if (controller != null)
+            {
+                PlayerMarker marker = controller.GetComponentInChildren<PlayerMarker>();
+                if (marker != null)
+                {
+                    marker.LoseLife();
+                }
+            }
+
+            if (livesLeft > 0)
+            {
+                // Player still has lives, respawn them
+                StartCoroutine(RespawnPlayer(playerObj, controlScheme, device));
+            }
+            else
+            {
+                // Player is out of lives
+                Debug.Log($"{playerObj.name} is out of lives!");
+                CheckForGameEnd();
+            }
+        }
+    }
+
     private IEnumerator RespawnPlayer(GameObject playerObj, string controlScheme, InputDevice device)
     {
         yield return new WaitForSeconds(respawnTime);
 
+        if (gameEnded) yield break;
+
         var playerInput = playerObj.GetComponent<PlayerInput>();
 
         playerObj.transform.position = findBestSpawnLocation();
+
+        // Re-enable the player GameObject
         playerObj.SetActive(true);
 
         // Re-enable input
         playerInput.SwitchCurrentControlScheme(controlScheme, device);
         playerInput.actions.Enable();
         playerInput.ActivateInput();
+    }
+
+    private void CheckForGameEnd()
+    {
+        // Count how many players still have lives
+        int playersAlive = 0;
+        GameObject lastPlayerAlive = null;
+
+        foreach (var kvp in playerLivesRemaining)
+        {
+            if (kvp.Value > 0)
+            {
+                playersAlive++;
+                lastPlayerAlive = kvp.Key;
+            }
+        }
+
+        Debug.Log($"Players still alive: {playersAlive}");
+
+        // If only 1 or 0 players remain, end the game
+        if (playersAlive <= 1)
+        {
+            EndGame(lastPlayerAlive);
+        }
+    }
+
+    private void EndGame(GameObject winner)
+    {
+        gameEnded = true;
+
+        if (winner != null)
+        {
+            Debug.Log($"Game Over! {winner.name} wins!");
+        }
+        else
+        {
+            Debug.Log("Game Over! No winners!");
+        }
+
+        // Pause the game
+        Time.timeScale = 0f;
+
+        // Show pause menu or victory screen
+        if (PauseMenu != null)
+        {
+            PauseMenu.alpha = 1f;
+            PauseMenu.interactable = true;
+            PauseMenu.blocksRaycasts = true;
+        }
     }
 
     // Called when a player joins

@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private CharacterController controller;
     [SerializeField] private PlayerInput input;
     [SerializeField] private Renderer markerRenderer;
+    [SerializeField] private PlayerMarker playerMarker;
 
     [Header("Particles")]
     [SerializeField] private ParticleSystem stunParticles;
@@ -53,7 +54,6 @@ public class PlayerController : MonoBehaviour
     private float stunEndTime = 0f;
     private Vector3 lastContactPoint; // Last point of contact with roller
     
-    [HideInInspector]
     public Color playerColor;
 
     [Header("Events")]
@@ -115,6 +115,20 @@ public class PlayerController : MonoBehaviour
     {
         markerRenderer.material = new Material(markerRenderer.material);
         markerRenderer.material.color = playerColor;
+    }
+
+    public void InitializeMarker()
+    {
+        // Initialize player marker with color
+        if (playerMarker != null)
+        {
+            playerMarker.Initialize(playerColor);
+            Debug.Log($"{name}: Initialized marker with color {playerColor}");
+        }
+        else
+        {
+            Debug.LogWarning($"{name}: PlayerMarker is null!");
+        }
     }
 
     private void Update()
@@ -309,10 +323,15 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void Kill()
     {
+        // Prevent multiple kills if player is already dead/inactive
+        if (!gameObject.activeSelf)
+        {
+            return;
+        }
+
         Debug.Log($"Player {name} died!");
 
         OnPlayerKilled.Invoke();
-
         // TODO: Implement proper death/respawn/elimination system
         // For now, just disable the player
         gameObject.SetActive(false);
