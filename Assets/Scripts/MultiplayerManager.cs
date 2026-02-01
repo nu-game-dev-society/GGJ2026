@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MultiplayerManager : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class MultiplayerManager : MonoBehaviour
 
     [field: SerializeField]
     public CanvasGroup PauseMenu { get; set; }
+    [field: SerializeField]
+    public Image TrophyImage { get; set; }
 
     [SerializeField] private float pauseMenuFadeDuration = 0.5f;
     private bool pauseMenuFaded = false;
@@ -224,6 +227,9 @@ public class MultiplayerManager : MonoBehaviour
 
         if (winner != null)
         {
+            TrophyImage.enabled = true;
+            TrophyImage.color = winner.GetComponent<PlayerController>().playerColor;
+
             Debug.Log($"Game Over! {winner.name} wins!");
         }
         else
