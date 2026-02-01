@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -184,7 +183,7 @@ public class MultiplayerManager : MonoBehaviour
         if (activePlayers.Count == 0)
         {
             Debug.Log("First player spawning at first location");
-            return spawnLocations[0].position;
+            return spawnLocations[Random.Range(0, spawnLocations.Length)].position;
         }
 
         float maxDistance = -1f;
