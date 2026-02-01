@@ -48,7 +48,7 @@ public class MaskController : MonoBehaviour
         OnMaskEquipped?.Invoke(maskData);
 
         // ryan needs to connect this to make it compile
-        // playerController.OnMaskEquipped(maskData.AttackType);
+        playerController.OnMaskEquipped(maskData);
     }
 
     public void RemoveMask()

@@ -29,7 +29,7 @@ public class WhackAttackController : AttackController
     {
         Vector3 direction = transform.forward;
         Transform bestPlayer = null;
-        float bestDot = 0.7f; // how "central" they must be (cos ~36° cone)
+        float bestDot = 0.7f; // how "central" they must be (cos ~36ï¿½ cone)
 
         foreach (PlayerInput input in PlayerInput.all)
         {
@@ -61,7 +61,10 @@ public class WhackAttackController : AttackController
         IEnumerator ResetProjectileDelayed(float secondsToWait)
         {
             yield return new WaitForSeconds(secondsToWait);
-            Destroy(projectile.gameObject);
+            if (projectile != null)
+            {
+                Destroy(projectile.gameObject);
+            }
         }
 
         void OnCollided(Collision other)

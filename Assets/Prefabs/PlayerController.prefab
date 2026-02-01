@@ -510,7 +510,7 @@ MonoBehaviour:
   knockbackForce: 10
   knockbackUpwardForce: 0
   characterControllerKnockbackMultiplier: 5
-  attackCooldown: 0.5
+  attackCooldown: 2
   attackDelay: 0
   ignoreCollisions:
   - {fileID: 844825012498914322}
@@ -1101,7 +1101,7 @@ GameObject:
   - component: {fileID: 1054423491654780509}
   - component: {fileID: 6181270454520112459}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Lives
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

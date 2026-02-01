@@ -24,5 +24,10 @@ public class DeathZone : MonoBehaviour
             }
 
         }
+        else
+        {
+            var health = other.GetComponent<IHealth>();
+            health?.TakeDamage(2134567890);
+        }
     }
 }

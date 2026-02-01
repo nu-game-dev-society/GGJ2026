@@ -46,15 +46,17 @@ public class BlastAttackController : AttackController
     }
 
     private void FireProjectile()
-    {   
-        if (projectile.gameObject.activeSelf)
-        {
-            return;
-        }
+    {
+        // if (!CanAttack())
+        // {
+        //     return;
+        // }
+
+        ResetProjectile();
 
         Vector3 direction = transform.forward;
         Transform bestPlayer = null;
-        float bestDot = 0.7f; // how "central" they must be (cos ~36° cone)
+        float bestDot = 0.7f; // how "central" they must be (cos ~36ï¿½ cone)
 
         foreach (PlayerInput input in PlayerInput.all)
         {
@@ -94,10 +96,7 @@ public class BlastAttackController : AttackController
                 yield break;
             }
 
-            Destroy(projectileComp);
-            projectile.transform.SetParent(transform);
-            projectile.transform.transform.position = this.attackPoint.position;
-            projectile.gameObject.SetActive(false);
+            ResetProjectile();
         }
 
         void OnCollided(Collision other)
@@ -111,5 +110,13 @@ public class BlastAttackController : AttackController
         projectileComp.Collided += OnCollided;
 
         StartCoroutine(ResetProjectileDelayed(projectileLifetimeInSeconds));
+    }
+
+    private void ResetProjectile()
+    {
+        Destroy(projectile.GetComponent<WhackProjectile>());
+        projectile.transform.SetParent(transform);
+        projectile.transform.transform.position = this.attackPoint.position;
+        projectile.gameObject.SetActive(false);
     }
 }

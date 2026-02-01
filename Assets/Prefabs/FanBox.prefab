@@ -415,8 +415,8 @@ MonoBehaviour:
   upTransform: {fileID: 0}
   downTransform: {fileID: 0}
   isUp: 0
-  whiplashStrength: 1
-  whiplashSpeed: 5
+  whiplashStrength: 0.7
+  whiplashSpeed: 7
   rotationWhiplashStrength: 5
 --- !u!1 &8135410984032648758
 GameObject:

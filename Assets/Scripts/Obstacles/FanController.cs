@@ -69,8 +69,7 @@ public class FanController : MonoBehaviour
 
             float distance = Vector3.Distance(transform.position, rb.position);
             float falloff = Mathf.Clamp01(1f - (distance / maxFloatHeight));
-            
-            rb.AddForce(transform.InverseTransformDirection(Direction) * fanForce * falloff, ForceMode.Force);
+            rb.AddForce(Direction * fanForce * falloff, ForceMode.Force);
         }
     }
 
@@ -104,7 +103,7 @@ public class FanController : MonoBehaviour
             float upwardSpeed =
                 fanForce * characterForceMultiplier * falloff * Time.deltaTime;
 
-            cc.Move(transform.InverseTransformDirection(Direction) * upwardSpeed);
+            cc.Move(Direction * upwardSpeed);
         }
     }
 
