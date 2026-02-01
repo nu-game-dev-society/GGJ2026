@@ -36,6 +36,11 @@ public class PlayerController : MonoBehaviour
     [Header("Particles")]
     [SerializeField] private ParticleSystem stunParticles;
     [SerializeField] private ParticleSystem hitParticles;
+
+
+    [Header("SFX")]
+    [SerializeField] private AudioSource hitSource;
+    [SerializeField] private AudioClip hitClip;
     #endregion
 
     private Vector2 moveInput;
@@ -316,5 +321,10 @@ public class PlayerController : MonoBehaviour
     public void PlayHit()
     {
         hitParticles.Play();
+
+        hitSource.clip = hitClip;
+        hitSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
+
+        hitSource.Play();
     }
 }
