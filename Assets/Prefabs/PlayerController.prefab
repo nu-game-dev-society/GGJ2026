@@ -1264,7 +1264,7 @@ MonoBehaviour:
   knockbackForce: 10
   knockbackUpwardForce: 2
   characterControllerKnockbackMultiplier: 2
-  attackCooldown: 0.5
+  attackCooldown: 1.5
   attackDelay: 0
   ignoreCollisions:
   - {fileID: 844825012498914322}
