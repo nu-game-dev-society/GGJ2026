@@ -51,7 +51,7 @@ public class BlastAttackController : AttackController
 
         Vector3 direction = transform.forward;
         Transform bestPlayer = null;
-        float bestDot = 0.7f; // how "central" they must be (cos ~36� cone)
+        float bestDot = 0.8f; // how "central" they must be (cos ~36� cone)
 
         foreach (PlayerInput input in PlayerInput.all)
         {
@@ -81,7 +81,7 @@ public class BlastAttackController : AttackController
         projectileComp.gameObject.transform.position = this.attackPoint.position;
         projectileComp.gameObject.transform.rotation = Quaternion.LookRotation(direction * -1f);// idk why we need to flip this but we do
         projectileComp.Damage = this.attackDamage;
-        projectileComp.Launch(ignoreCollisions.SelectMany(go => go.GetComponentsInChildren<Collider>()).ToArray(), transform.forward, projectileSpeed);
+        projectileComp.Launch(ignoreCollisions.SelectMany(go => go.GetComponentsInChildren<Collider>()).ToArray(), direction, projectileSpeed);
 
         IEnumerator ResetProjectileDelayed(float secondsToWait)
         {
