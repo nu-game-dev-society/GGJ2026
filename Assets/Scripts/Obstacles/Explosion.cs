@@ -13,8 +13,6 @@ public class Explosion : MonoBehaviour
 
     [Header("Effects")]
     [SerializeField] private ParticleSystem explosionParticles;
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip explosionSound;
 
     [Header("Optional Settings")]
     [SerializeField] private bool destroyAfterExplosion = true;
@@ -23,13 +21,6 @@ public class Explosion : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool showDebugGizmos = true;
 
-    private void Awake()
-    {
-        if (audioSource == null)
-        {
-            audioSource = GetComponent<AudioSource>();
-        }
-    }
 
     [ContextMenu("Explode")]
     public void Explode()
@@ -43,11 +34,7 @@ public class Explosion : MonoBehaviour
             Destroy(particles.gameObject, particles.main.duration + particles.main.startLifetime.constantMax);
         }
 
-        // Play sound effect
-        if (audioSource != null && explosionSound != null)
-        {
-            audioSource.PlayOneShot(explosionSound);
-        }
+   
 
         // Find all colliders in explosion radius
         Collider[] colliders = Physics.OverlapSphere(explosionPosition, explosionRadius, affectedLayers);

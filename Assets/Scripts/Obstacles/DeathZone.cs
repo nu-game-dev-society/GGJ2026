@@ -3,6 +3,8 @@ using UnityEngine;
 public class DeathZone : MonoBehaviour
 {
     public ParticleSystem particleSystem;
+    public AudioSource audioSource;
+    public AudioClip clip;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -14,6 +16,13 @@ public class DeathZone : MonoBehaviour
 
             if (particleSystem)
                 particleSystem.Play();
+
+            if (audioSource && clip)
+            {
+                audioSource.clip = clip;
+                audioSource.Play();
+            }
+
         }
     }
 }

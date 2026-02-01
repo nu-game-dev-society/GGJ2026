@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class AttackController : MonoBehaviour
@@ -11,6 +12,7 @@ public class AttackController : MonoBehaviour
     [SerializeField] protected float knockbackUpwardForce = 2f; // Upward component for dynamic feel
     [SerializeField] protected float characterControllerKnockbackMultiplier = 5f; // CharacterControllers need higher multiplier for similar effect
     [SerializeField] protected float attackCooldown = 0.5f;
+    [SerializeField] protected float attackDelay = 0.0f; // Delay before raycast/hit detection
     [SerializeField] protected List<GameObject> ignoreCollisions;
     [Header("References")]
     [SerializeField] private Animator animator;
@@ -54,13 +56,21 @@ public class AttackController : MonoBehaviour
 
         lastAttackTime = Time.time;
 
-        // Trigger animation
+        // Trigger animation immediately
         if (animator != null && AttackType != AttackType.None)
         {
             animator.SetTrigger(AttackType.ToString());
         }
 
-        // Detect and damage enemies in cone
+        // Delay the actual attack detection
+        StartCoroutine(DelayedAttack());
+    }
+
+    private IEnumerator DelayedAttack()
+    {
+        yield return new WaitForSeconds(attackDelay);
+
+        // Detect and damage enemies in cone after delay
         DetectAndHitEnemies();
     }
 

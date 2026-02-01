@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +14,12 @@ public class MultiplayerManager : MonoBehaviour
     private bool keyboardLeftJoined = false;
     private bool keyboardRightJoined = false;
     private HashSet<Gamepad> joinedGamepads = new HashSet<Gamepad>();
+
+    [field: SerializeField]
+    public CanvasGroup PauseMenu { get; set; }
+
+    [SerializeField] private float pauseMenuFadeDuration = 0.5f;
+    private bool pauseMenuFaded = false;
 
     private void Start()
     {
@@ -134,6 +139,31 @@ public class MultiplayerManager : MonoBehaviour
 
         // Debug: Print active actions
         Debug.Log($"Actions enabled: {playerInput.actions.enabled}, Current action map: {playerInput.currentActionMap?.name}");
+
+        // Fade out pause menu when first player joins
+        if (!pauseMenuFaded && PauseMenu != null)
+        {
+            StartCoroutine(FadeOutPauseMenu());
+        }
+    }
+
+    private IEnumerator FadeOutPauseMenu()
+    {
+        pauseMenuFaded = true;
+        float elapsed = 0f;
+        float startAlpha = PauseMenu.alpha;
+
+        while (elapsed < pauseMenuFadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / pauseMenuFadeDuration;
+            PauseMenu.alpha = Mathf.Lerp(startAlpha, 0f, t);
+            yield return null;
+        }
+
+        PauseMenu.alpha = 0f;
+        PauseMenu.interactable = false;
+        PauseMenu.blocksRaycasts = false;
     }
 
     private Vector3 findBestSpawnLocation()
@@ -153,7 +183,7 @@ public class MultiplayerManager : MonoBehaviour
         if (activePlayers.Count == 0)
         {
             Debug.Log("First player spawning at first location");
-            return spawnLocations[0].position;
+            return spawnLocations[Random.Range(0, spawnLocations.Length)].position;
         }
 
         float maxDistance = -1f;
