@@ -373,6 +373,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1947910261333970079}
   - component: {fileID: 3162706555595841371}
+  - component: {fileID: 116735947367369819}
   m_Layer: 0
   m_Name: FanBox
   m_TagString: Untagged
@@ -418,6 +419,27 @@ MonoBehaviour:
   whiplashStrength: 0.7
   whiplashSpeed: 7
   rotationWhiplashStrength: 5
+--- !u!65 &116735947367369819
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7402932117556161551}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5.5, y: 6, z: 6}
+  m_Center: {x: -3, y: 1.73, z: 2.25}
 --- !u!1 &8135410984032648758
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class FanManager : MonoBehaviour
 {
     [SerializeField] private List<FanMovementController> fans;
+    [SerializeField] private float intialDowntime = 20f;
     [SerializeField] private float upTime;
     [SerializeField] private float downTime;
 
@@ -16,13 +17,13 @@ public class FanManager : MonoBehaviour
     
     IEnumerator LoopUpAndDown()
     {
+        SetAllIsUp(false);
+
+        yield return new WaitForSeconds(intialDowntime);
+
         do
         {
-            foreach (var fan in fans)
-            {
-                fan.gameObject.SetActive(true);
-                fan.SetIsUp(false);
-            }
+            SetAllIsUp(false);
 
             yield return new WaitForSeconds(downTime);
 
@@ -31,5 +32,14 @@ public class FanManager : MonoBehaviour
             yield return new WaitForSeconds(upTime);
         }
         while (true);
+    }
+
+    private void SetAllIsUp(bool isUp)
+    {
+        foreach (var fan in fans)
+        {
+            fan.gameObject.SetActive(true); // just to be safe
+            fan.SetIsUp(isUp);
+        }
     }
 }
