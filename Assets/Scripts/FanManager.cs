@@ -26,7 +26,7 @@ public class FanManager : MonoBehaviour
 
             yield return new WaitForSeconds(downTime);
 
-            fans[Random.Range(0, fans.Count-1)].SetIsUp(true);
+            fans[Random.Range(0, fans.Count)].SetIsUp(true);
 
             yield return new WaitForSeconds(upTime);
         }

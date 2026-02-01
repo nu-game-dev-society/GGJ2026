@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class MultiplayerManager : MonoBehaviour
 {
@@ -220,8 +221,15 @@ public class MultiplayerManager : MonoBehaviour
             Debug.Log("Game Over! No winners!");
         }
 
-        // Pause the game
         Time.timeScale = 0f;
+
+        IEnumerator ReloadSceneDelayed()
+        {
+            yield return new WaitForSecondsRealtime(5f);
+            Time.timeScale = 1f;
+            SceneManager.LoadScene(0);
+        }
+        StartCoroutine(ReloadSceneDelayed());
 
         // Show pause menu or victory screen
         if (PauseMenu != null)
