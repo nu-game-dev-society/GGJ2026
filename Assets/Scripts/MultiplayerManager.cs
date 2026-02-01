@@ -32,7 +32,7 @@ public class MultiplayerManager : MonoBehaviour
 
     [SerializeField] private float pauseMenuFadeDuration = 0.5f;
     private bool pauseMenuFaded = false;
-    
+
     public void Awake()
     {
         instance = this;
@@ -111,7 +111,7 @@ public class MultiplayerManager : MonoBehaviour
 
                 // Set color
                 PlayerController controller = playerObj.GetComponent<PlayerController>();
-                controller.playerColor = Color.HSVToRGB((playerInput.playerIndex * 0.618034f) % 1f, 1f, 1f);
+                controller.playerColor = GetColor(playerInput, controller);
 
                 // Initialize player marker with color
                 controller.InitializeMarker();
@@ -139,6 +139,13 @@ public class MultiplayerManager : MonoBehaviour
                 OnPlayerJoined(playerInput);
             }
         }
+    }
+    int colour = 0;
+    public Color[] Colours;
+    private Color GetColor(PlayerInput playerInput, PlayerController controller)
+    {
+        colour = colour + 1;
+        return colour < Colours.Length ? Colours[colour] : Color.HSVToRGB((colour * 0.618034f) % 1f, 1f, 1f);
     }
 
     private void OnPlayerDied(GameObject playerObj, string controlScheme, InputDevice device)

@@ -90,4 +90,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 844825012498914322, guid: b3a8bd04f112d9c4c84b561c557fb6c5, type: 3}
-  playerSpawnOffset: 2
+  respawnTime: 5
+  spawnLocations: []
+  playerLives: 3
+  <PauseMenu>k__BackingField: {fileID: 0}
+  <TrophyImage>k__BackingField: {fileID: 0}
+  pauseMenuFadeDuration: 0.5
+  Colours:
+  - {r: 1, g: 0.0047169924, b: 0.0047169924, a: 1}
+  - {r: 0, g: 1, b: 0.991797, a: 1}
+  - {r: 0.102030635, g: 0.9245283, b: 0, a: 1}
+  - {r: 1, g: 0, b: 0.70765877, a: 1}
+  - {r: 1, g: 0.8796874, b: 0.023584902, a: 1}
+  - {r: 0.72093105, g: 0, b: 1, a: 1}
+  - {r: 0, g: 1, b: 0.55931616, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 1, g: 0.49217367, b: 0, a: 1}
