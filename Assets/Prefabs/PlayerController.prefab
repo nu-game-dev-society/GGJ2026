@@ -322,6 +322,7 @@ MonoBehaviour:
   knockbackUpwardForce: 2
   characterControllerKnockbackMultiplier: 5
   attackCooldown: 0.5
+  attackDelay: 0
   ignoreCollisions:
   - {fileID: 844825012498914322}
   animator: {fileID: 6112616524437261588}
@@ -525,6 +526,7 @@ MonoBehaviour:
   knockbackUpwardForce: 5
   characterControllerKnockbackMultiplier: 2
   attackCooldown: 0.5
+  attackDelay: 0.5
   ignoreCollisions:
   - {fileID: 844825012498914322}
   animator: {fileID: 6112616524437261588}
@@ -584,6 +586,7 @@ MonoBehaviour:
   knockbackUpwardForce: 2
   characterControllerKnockbackMultiplier: 2
   attackCooldown: 0.5
+  attackDelay: 0.5
   ignoreCollisions:
   - {fileID: 844825012498914322}
   animator: {fileID: 6112616524437261588}
@@ -643,6 +646,7 @@ MonoBehaviour:
   knockbackUpwardForce: 2
   characterControllerKnockbackMultiplier: 2
   attackCooldown: 0.5
+  attackDelay: 0
   ignoreCollisions:
   - {fileID: 844825012498914322}
   animator: {fileID: 6112616524437261588}
@@ -743,6 +747,7 @@ MonoBehaviour:
   knockbackUpwardForce: 2
   characterControllerKnockbackMultiplier: 2
   attackCooldown: 0.5
+  attackDelay: 0
   ignoreCollisions: []
   animator: {fileID: 6112616524437261588}
   attackPoint: {fileID: 0}
