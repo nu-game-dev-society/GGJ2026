@@ -524,7 +524,7 @@ MonoBehaviour:
   projectile: {fileID: 2160167723169318480}
   projectileSpeed: 10
   projectileFireDelayInSeconds: 0.5
-  projectileLifetimeInSeconds: 5
+  projectileLifetimeInSeconds: 2
   projectileLifetimeAfterValidCollision: 0
 --- !u!120 &4685533008844166924
 LineRenderer:
@@ -581,8 +581,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.004840851
-        value: 0.032258987
+        time: 0
+        value: 0.088869095
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -622,8 +622,8 @@ LineRenderer:
       m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 0
-    numCapVertices: 0
+    numCornerVertices: 2
+    numCapVertices: 5
     alignment: 0
     textureMode: 0
     textureScale: {x: 0.1, y: 1}

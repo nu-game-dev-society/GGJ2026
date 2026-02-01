@@ -54,7 +54,7 @@ public class BlastAttackController : AttackController
 
         Vector3 direction = transform.forward;
         Transform bestPlayer = null;
-        float bestDot = 0.8f; // how "central" they must be (cos ~36° cone)
+        float bestDot = 0.7f; // how "central" they must be (cos ~36° cone)
 
         foreach (PlayerInput input in PlayerInput.all)
         {
