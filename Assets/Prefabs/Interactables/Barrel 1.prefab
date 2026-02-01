@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 9043877671999744338}
   - component: {fileID: 3430021939505901292}
   - component: {fileID: 4573573727011687642}
+  - component: {fileID: 6864808910551582458}
   m_Layer: 7
   m_Name: Barrel 1
   m_TagString: Untagged
@@ -336,3 +337,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6864808910551582458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6355997413962890389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 882ad2d628300f44fa984642d3e54f4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawnDelay: 5

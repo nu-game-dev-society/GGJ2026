@@ -89,9 +89,16 @@ public class Explosion : MonoBehaviour
             }
         }
 
-        // Destroy object after explosion
-        if (destroyAfterExplosion)
+        // Check if this is a respawnable barrel
+        RespawnableBarrel respawnable = GetComponent<RespawnableBarrel>();
+        if (respawnable != null)
         {
+            // Let the respawnable barrel handle its own lifecycle
+            respawnable.OnExplode();
+        }
+        else if (destroyAfterExplosion)
+        {
+            // Destroy object after explosion (normal behavior)
             Destroy(gameObject, destroyDelay);
         }
     }

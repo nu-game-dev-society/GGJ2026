@@ -92,4 +92,17 @@ public class BarrelFlashTimer : MonoBehaviour
             onTimerComplete?.Invoke();
         }
     }
+
+    public void ResetTimer()
+    {
+        elapsedTime = 0f;
+        isFlashing = false;
+
+        // Reset to original color
+        if (targetRenderer != null && propertyBlock != null)
+        {
+            propertyBlock.SetColor(colorPropertyName, originalColor);
+            targetRenderer.SetPropertyBlock(propertyBlock);
+        }
+    }
 }
