@@ -16,6 +16,12 @@ public class MultiplayerManager : MonoBehaviour
     private bool keyboardRightJoined = false;
     private HashSet<Gamepad> joinedGamepads = new HashSet<Gamepad>();
 
+    [field: SerializeField]
+    public CanvasGroup PauseMenu { get; set; }
+
+    [SerializeField] private float pauseMenuFadeDuration = 0.5f;
+    private bool pauseMenuFaded = false;
+
     private void Start()
     {
         inputManager = GetComponent<PlayerInputManager>();
@@ -134,6 +140,31 @@ public class MultiplayerManager : MonoBehaviour
 
         // Debug: Print active actions
         Debug.Log($"Actions enabled: {playerInput.actions.enabled}, Current action map: {playerInput.currentActionMap?.name}");
+
+        // Fade out pause menu when first player joins
+        if (!pauseMenuFaded && PauseMenu != null)
+        {
+            StartCoroutine(FadeOutPauseMenu());
+        }
+    }
+
+    private IEnumerator FadeOutPauseMenu()
+    {
+        pauseMenuFaded = true;
+        float elapsed = 0f;
+        float startAlpha = PauseMenu.alpha;
+
+        while (elapsed < pauseMenuFadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / pauseMenuFadeDuration;
+            PauseMenu.alpha = Mathf.Lerp(startAlpha, 0f, t);
+            yield return null;
+        }
+
+        PauseMenu.alpha = 0f;
+        PauseMenu.interactable = false;
+        PauseMenu.blocksRaycasts = false;
     }
 
     private Vector3 findBestSpawnLocation()
