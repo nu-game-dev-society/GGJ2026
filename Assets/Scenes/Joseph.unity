@@ -890,6 +890,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 107345261037802666, guid: c0d0e98d43d523b4a80d6579639501a6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2662997869829161978, guid: c0d0e98d43d523b4a80d6579639501a6, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -970,9 +974,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6154083116414158635, guid: c0d0e98d43d523b4a80d6579639501a6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 612762bfd3e4a304cb6f2f67f92cdb6f, type: 3}
+    - target: {fileID: 6154083116414158635, guid: c0d0e98d43d523b4a80d6579639501a6, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6493123178904506139, guid: c0d0e98d43d523b4a80d6579639501a6, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8004252010025545396, guid: c0d0e98d43d523b4a80d6579639501a6, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.57632345
+      objectReference: {fileID: 0}
+    - target: {fileID: 8004252010025545396, guid: c0d0e98d43d523b4a80d6579639501a6, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.57632345
+      objectReference: {fileID: 0}
+    - target: {fileID: 8004252010025545396, guid: c0d0e98d43d523b4a80d6579639501a6, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.57632345
+      objectReference: {fileID: 0}
+    - target: {fileID: 8004252010025545396, guid: c0d0e98d43d523b4a80d6579639501a6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8004252010025545396, guid: c0d0e98d43d523b4a80d6579639501a6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -23
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -985,7 +1017,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 766239839}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
