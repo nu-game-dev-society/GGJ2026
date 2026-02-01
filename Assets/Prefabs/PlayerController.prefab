@@ -762,6 +762,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5425218734961606791, guid: 7e969a3e7f31b4e58a470d234ddeae81, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5425218734961698745, guid: 7e969a3e7f31b4e58a470d234ddeae81, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5425218734961711175, guid: 7e969a3e7f31b4e58a470d234ddeae81, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5425218734975610459, guid: 7e969a3e7f31b4e58a470d234ddeae81, type: 3}
       propertyPath: m_IsActive
       value: 1
