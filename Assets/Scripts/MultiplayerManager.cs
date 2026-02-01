@@ -7,12 +7,17 @@ using UnityEngine.SceneManagement;
 
 public class MultiplayerManager : MonoBehaviour
 {
+    public static MultiplayerManager instance;
+
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private int respawnTime = 5;
     [SerializeField] private Transform[] spawnLocations;
     [SerializeField] private int playerLives = 3;
 
     private PlayerInputManager inputManager;
+    public PlayerInputManager PlayerInputManager => inputManager;
+
+
     private bool keyboardLeftJoined = false;
     private bool keyboardRightJoined = false;
     private HashSet<Gamepad> joinedGamepads = new HashSet<Gamepad>();
@@ -24,6 +29,11 @@ public class MultiplayerManager : MonoBehaviour
 
     [SerializeField] private float pauseMenuFadeDuration = 0.5f;
     private bool pauseMenuFaded = false;
+    
+    public void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {

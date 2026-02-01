@@ -1,6 +1,7 @@
-using UnityEngine;
 using System.Collections;
 using System.Linq;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class BlastAttackController : AttackController
 {
@@ -10,8 +11,8 @@ public class BlastAttackController : AttackController
     [SerializeField] private GameObject projectile;
     [SerializeField] private float projectileSpeed = 10f;
     [SerializeField] private float projectileFireDelayInSeconds = 0.5f;
-    [SerializeField] private float projectileLifetimeInSeconds = 5f;
-    [SerializeField] private float projectileLifetimeAfterValidCollision = 1f;
+    [SerializeField] private float projectileLifetimeInSeconds = 2f;
+    [SerializeField] private float projectileLifetimeAfterValidCollision = 0.1f;
 
     public override AttackType AttackType => AttackType.Blast;
 
@@ -26,6 +27,11 @@ public class BlastAttackController : AttackController
         {
             lineRenderer.enabled = false;
         }
+    }
+
+    private void OnDisable()
+    {
+        lineRenderer.enabled = false;
     }
 
     protected override void DetectAndHitEnemies()
@@ -46,12 +52,37 @@ public class BlastAttackController : AttackController
             return;
         }
 
+        Vector3 direction = transform.forward;
+        Transform bestPlayer = null;
+        float bestDot = 0.7f; // how "central" they must be (cos ~36° cone)
+
+        foreach (PlayerInput input in PlayerInput.all)
+        {
+            if (input == null) continue;
+
+            Vector3 toPlayer = (input.transform.position - transform.position).normalized;
+            float dot = Vector3.Dot(transform.forward, toPlayer);
+
+            // Higher dot = more directly in front
+            if (dot > bestDot)
+            {
+                bestDot = dot;
+                bestPlayer = input.transform;
+            }
+        }
+
+        // If we found a good target, aim at them
+        if (bestPlayer != null)
+        {
+            direction = (bestPlayer.position - transform.position).normalized;
+        }
+
         projectile.gameObject.SetActive(true);
         projectile.transform.SetParent(null);
 
         var projectileComp = projectile.AddComponent<WhackProjectile>();
         projectileComp.gameObject.transform.position = this.attackPoint.position;
-        projectileComp.gameObject.transform.rotation = Quaternion.LookRotation(transform.forward*-1f);// idk why we need to flip this but we do
+        projectileComp.gameObject.transform.rotation = Quaternion.LookRotation(direction * -1f);// idk why we need to flip this but we do
         projectileComp.Damage = this.attackDamage;
         projectileComp.Launch(ignoreCollisions.SelectMany(go => go.GetComponentsInChildren<Collider>()).ToArray(), transform.forward, projectileSpeed);
 
