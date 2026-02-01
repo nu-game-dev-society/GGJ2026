@@ -40,6 +40,9 @@ public class WhackAttackController : AttackController
 
         void OnCollided(Collision other)
         {
+            ApplyDamage(other.gameObject);
+            ApplyKnockback(other.collider, (other.transform.position - transform.position).normalized);
+
             StartCoroutine(ResetProjectileDelayed(projectileLifetimeAfterValidCollision));
         }
 
