@@ -6,7 +6,7 @@ public class FanController : MonoBehaviour
 {
     [Header("Fan Settings")]
     [SerializeField] private float fanForce = 15f;
-    [SerializeField] private float maxFloatHeight = 10f; // Max height above fan before force starts decreasing
+    [SerializeField] private float maxFloatHeight = 10f;
     [SerializeField] private bool startOn = false;
 
     [Header("Random Intervals")]
@@ -16,31 +16,45 @@ public class FanController : MonoBehaviour
     [SerializeField] private float maxOffTime = 6f;
 
     [Header("Character Controller Settings")]
-    [SerializeField] private float characterForceMultiplier = 0.1f; // How strong the fan pushes CharacterControllers (0.1 = 10% of rigidbody force)
-    [SerializeField] private float characterMovementMultiplier = 0.3f; // Movement speed when in fan
+    [SerializeField] private float characterForceMultiplier = 0.1f;
+    [SerializeField] private float characterMovementMultiplier = 0.3f;
 
-    [Header("Visual/Audio")]
-    [SerializeField] private Transform fanBladesTransform; // The visual blades to rotate
-    [SerializeField] private float fanRotationSpeed = 720f; // Degrees per second when on
-    [SerializeField] private float rotationAcceleration = 360f; // How fast it speeds up/slows down
+    [Header("Visual / Audio")]
+    [SerializeField] private Transform fanBladesTransform;
+    [SerializeField] private float fanRotationSpeed = 720f;
+    [SerializeField] private float rotationAcceleration = 360f;
     [SerializeField] private ParticleSystem fanParticles;
     [SerializeField] private AudioSource audioSource;
+
+    [Header("Audio Fade")]
+    [SerializeField] private float audioFadeDuration = 1f;
+    [SerializeField] private float maxAudioVolume = 1f;
 
     [Header("Debug")]
     [SerializeField] private bool showDebugGizmos = true;
 
+    public Vector3 Direction;
+    public Vector3 RotateDirection;
+
     private bool isOn;
     private float currentRotationSpeed = 0f;
+
+    private Coroutine audioFadeRoutine;
+
     private HashSet<Rigidbody> affectedRigidbodies = new HashSet<Rigidbody>();
     private HashSet<CharacterController> affectedCharacterControllers = new HashSet<CharacterController>();
     private Dictionary<CharacterController, IMovement> characterMovements = new Dictionary<CharacterController, IMovement>();
 
-
-    public Vector3 Direction;
-    public Vector3 RotateDirection;
     private void Start()
     {
         isOn = startOn;
+
+        if (audioSource != null)
+        {
+            audioSource.volume = isOn ? maxAudioVolume : 0f;
+            if (isOn) audioSource.Play();
+        }
+
         UpdateFanVisuals();
         StartCoroutine(RandomIntervalRoutine());
     }
@@ -49,48 +63,46 @@ public class FanController : MonoBehaviour
     {
         if (!isOn) return;
 
-        // Apply force to rigidbodies
         foreach (Rigidbody rb in affectedRigidbodies)
         {
             if (rb == null) continue;
 
-            // Calculate force based on distance from fan
-            float distanceFromFan = Vector3.Distance(transform.position, rb.position);
-            float forceFalloff = Mathf.Clamp01(1f - (distanceFromFan / maxFloatHeight));
-            float currentForce = fanForce * forceFalloff;
-
-            // Apply upward force - momentum is automatically conserved
-            rb.AddForce(Direction * currentForce, ForceMode.Force);
+            float distance = Vector3.Distance(transform.position, rb.position);
+            float falloff = Mathf.Clamp01(1f - (distance / maxFloatHeight));
+            rb.AddForce(Direction * fanForce * falloff, ForceMode.Force);
         }
     }
 
     private void Update()
     {
-        // Smoothly interpolate rotation speed
         float targetSpeed = isOn ? fanRotationSpeed : 0f;
-        currentRotationSpeed = Mathf.MoveTowards(currentRotationSpeed, targetSpeed, rotationAcceleration * Time.deltaTime);
+        currentRotationSpeed = Mathf.MoveTowards(
+            currentRotationSpeed,
+            targetSpeed,
+            rotationAcceleration * Time.deltaTime
+        );
 
-        // Rotate fan blades
         if (fanBladesTransform != null)
         {
-            fanBladesTransform.Rotate(RotateDirection, currentRotationSpeed * Time.deltaTime, Space.Self);
+            fanBladesTransform.Rotate(
+                RotateDirection,
+                currentRotationSpeed * Time.deltaTime,
+                Space.Self
+            );
         }
 
         if (!isOn) return;
 
-        // Handle character controllers
         foreach (CharacterController cc in affectedCharacterControllers)
         {
             if (cc == null) continue;
 
-            // Apply upward movement to character controller
-            float distanceFromFan = Vector3.Distance(transform.position, cc.transform.position);
-            float forceFalloff = Mathf.Clamp01(1f - (distanceFromFan / maxFloatHeight));
+            float distance = Vector3.Distance(transform.position, cc.transform.position);
+            float falloff = Mathf.Clamp01(1f - (distance / maxFloatHeight));
 
-            // Scale down the force for CharacterControllers since they use direct movement
-            float upwardSpeed = fanForce * characterForceMultiplier * forceFalloff * Time.deltaTime;
+            float upwardSpeed =
+                fanForce * characterForceMultiplier * falloff * Time.deltaTime;
 
-            // Move character upward (CharacterController.Move adds to existing velocity)
             cc.Move(Direction * upwardSpeed);
         }
     }
@@ -99,20 +111,12 @@ public class FanController : MonoBehaviour
     {
         while (true)
         {
-            if (isOn)
-            {
-                // Fan is on, wait for random duration then turn off
-                float onDuration = Random.Range(minOnTime, maxOnTime);
-                yield return new WaitForSeconds(onDuration);
-                SetFanState(false);
-            }
-            else
-            {
-                // Fan is off, wait for random duration then turn on
-                float offDuration = Random.Range(minOffTime, maxOffTime);
-                yield return new WaitForSeconds(offDuration);
-                SetFanState(true);
-            }
+            float waitTime = isOn
+                ? Random.Range(minOnTime, maxOnTime)
+                : Random.Range(minOffTime, maxOffTime);
+
+            yield return new WaitForSeconds(waitTime);
+            SetFanState(!isOn);
         }
     }
 
@@ -121,47 +125,62 @@ public class FanController : MonoBehaviour
         isOn = state;
         UpdateFanVisuals();
 
-        if (!isOn)
-        {
-            // Remove movement modifiers when fan turns off
-            RestoreCharacterMovement();
-        }
-        else
-        {
-            // Apply movement modifiers when fan turns on
+        if (isOn)
             ApplyCharacterMovement();
-        }
+        else
+            RestoreCharacterMovement();
     }
 
     private void UpdateFanVisuals()
     {
-        // Update particles
         if (fanParticles != null)
         {
-            if (isOn)
-                fanParticles.Play();
-            else
-                fanParticles.Stop();
+            if (isOn) fanParticles.Play();
+            else fanParticles.Stop();
         }
 
-        // Update audio
         if (audioSource != null)
         {
+            if (audioFadeRoutine != null)
+                StopCoroutine(audioFadeRoutine);
+
             if (isOn)
             {
                 if (!audioSource.isPlaying)
                     audioSource.Play();
+
+                audioFadeRoutine = StartCoroutine(FadeAudio(maxAudioVolume));
             }
             else
             {
-                audioSource.Stop();
+                audioFadeRoutine = StartCoroutine(FadeAudio(0f));
             }
         }
     }
 
+    private IEnumerator FadeAudio(float targetVolume)
+    {
+        float startVolume = audioSource.volume;
+        float time = 0f;
+
+        while (time < audioFadeDuration)
+        {
+            time += Time.deltaTime;
+            audioSource.volume = Mathf.Lerp(
+                startVolume,
+                targetVolume,
+                time / audioFadeDuration
+            );
+            yield return null;
+        }
+        audioSource.volume = targetVolume;
+
+        if (Mathf.Approximately(targetVolume, 0f))
+            audioSource.Stop();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        // Track rigidbodies
         Rigidbody rb = other.GetComponent<Rigidbody>();
         if (rb != null)
         {
@@ -169,28 +188,23 @@ public class FanController : MonoBehaviour
             return;
         }
 
-        // Track character controllers
         CharacterController cc = other.GetComponent<CharacterController>();
         if (cc != null)
         {
             affectedCharacterControllers.Add(cc);
 
-            // Get movement component if exists
             IMovement movement = other.GetComponent<IMovement>();
             if (movement != null)
             {
                 characterMovements[cc] = movement;
                 if (isOn)
-                {
                     movement.SetSpeedModifier(characterMovementMultiplier);
-                }
             }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        // Remove rigidbodies
         Rigidbody rb = other.GetComponent<Rigidbody>();
         if (rb != null)
         {
@@ -198,7 +212,6 @@ public class FanController : MonoBehaviour
             return;
         }
 
-        // Remove character controllers and restore movement
         CharacterController cc = other.GetComponent<CharacterController>();
         if (cc != null)
         {
@@ -215,23 +228,16 @@ public class FanController : MonoBehaviour
     private void ApplyCharacterMovement()
     {
         foreach (var kvp in characterMovements)
-        {
             kvp.Value.SetSpeedModifier(characterMovementMultiplier);
-        }
     }
 
     private void RestoreCharacterMovement()
     {
         foreach (var kvp in characterMovements)
-        {
             kvp.Value.SetSpeedModifier(1f);
-        }
     }
 
-    public bool IsOn()
-    {
-        return isOn;
-    }
+    public bool IsOn() => isOn;
 
     [ContextMenu("Toggle Fan")]
     public void ToggleFan()
@@ -243,30 +249,14 @@ public class FanController : MonoBehaviour
     {
         if (!showDebugGizmos) return;
 
-        // Draw max float height
         Gizmos.color = isOn ? Color.cyan : Color.gray;
-        Vector3 topPosition = transform.position + Vector3.up * maxFloatHeight;
-        Gizmos.DrawLine(transform.position, topPosition);
-        Gizmos.DrawWireSphere(topPosition, 0.5f);
-
-        // Draw fan influence cone
-        Gizmos.color = isOn ? new Color(0, 1, 1, 0.2f) : new Color(0.5f, 0.5f, 0.5f, 0.2f);
-
-        // Simple cone visualization
-        Vector3[] conePoints = new Vector3[8];
-        for (int i = 0; i < 8; i++)
-        {
-            float angle = i * 45f * Mathf.Deg2Rad;
-            float radius = 1f;
-            Vector3 offset = new Vector3(Mathf.Cos(angle) * radius, 0, Mathf.Sin(angle) * radius);
-            conePoints[i] = topPosition + offset;
-            Gizmos.DrawLine(transform.position, conePoints[i]);
-        }
+        Vector3 top = transform.position + Vector3.up * maxFloatHeight;
+        Gizmos.DrawLine(transform.position, top);
+        Gizmos.DrawWireSphere(top, 0.5f);
     }
 
     private void OnDestroy()
     {
-        // Clean up movement modifiers
         RestoreCharacterMovement();
     }
 }
