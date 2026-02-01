@@ -1167,7 +1167,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 10, y: 0.1, z: 10}
-  m_Center: {x: 0, y: -0.1, z: 0}
+  m_Center: {x: 0, y: -0.08, z: 0}
 --- !u!225 &937784377 stripped
 CanvasGroup:
   m_CorrespondingSourceObject: {fileID: 4727271184558238432, guid: c0d0e98d43d523b4a80d6579639501a6, type: 3}
@@ -2219,6 +2219,10 @@ PrefabInstance:
     - target: {fileID: 4434820192967293502, guid: 525a2c24778f22e43bdd5710afa3bd2f, type: 3}
       propertyPath: m_Name
       value: LocalMultiplayerManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6059277349221588547, guid: 525a2c24778f22e43bdd5710afa3bd2f, type: 3}
+      propertyPath: respawnTime
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6059277349221588547, guid: 525a2c24778f22e43bdd5710afa3bd2f, type: 3}
       propertyPath: playerSpawnOffset
