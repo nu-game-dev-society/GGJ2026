@@ -32,7 +32,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private CharacterController controller;
     [SerializeField] private PlayerInput input;
     [SerializeField] private Renderer markerRenderer;
+
+    [Header("Particles")]
     [SerializeField] private ParticleSystem stunParticles;
+    [SerializeField] private ParticleSystem hitParticles;
     #endregion
 
     private Vector2 moveInput;
@@ -309,5 +312,10 @@ public class PlayerController : MonoBehaviour
         // TODO: Implement proper death/respawn/elimination system
         // For now, just disable the player
         gameObject.SetActive(false);
+    }
+
+    public void PlayHit()
+    {
+        hitParticles.Play();
     }
 }

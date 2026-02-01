@@ -17,6 +17,7 @@ public class PlayerHealthController : MonoBehaviour, IHealth
 
     [Header("Events")]
     [SerializeField] private UnityEvent<float> onHealthDepleted; // Passes stun duration
+    [SerializeField] private UnityEvent onTakeDamage;
 
     [field: SerializeField]
     public float Health { get; set; }
@@ -40,6 +41,8 @@ public class PlayerHealthController : MonoBehaviour, IHealth
     {
         Health -= damage;
         LastHitReceivedTime = Time.time;
+
+        onTakeDamage?.Invoke();
 
         if (Health <= 0)
         {

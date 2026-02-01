@@ -95,6 +95,7 @@ MonoBehaviour:
   input: {fileID: 5083259849083502680}
   markerRenderer: {fileID: 7531692700580125332}
   stunParticles: {fileID: 3384145675939476479}
+  hitParticles: {fileID: 150660818068290951}
   playerColor: {r: 0, g: 0, b: 0, a: 0}
   OnPlayerKilled:
     m_PersistentCalls:
@@ -249,6 +250,21 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 3
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onTakeDamage:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 992872790029498822}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: PlayHit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -746,6 +762,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5425218734975610459, guid: 7e969a3e7f31b4e58a470d234ddeae81, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6337182338829424018, guid: 7e969a3e7f31b4e58a470d234ddeae81, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -795,6 +815,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e969a3e7f31b4e58a470d234ddeae81, type: 3}
+--- !u!198 &150660818068290951 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5425218734961698745, guid: 7e969a3e7f31b4e58a470d234ddeae81, type: 3}
+  m_PrefabInstance: {fileID: 5286520648249121342}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2160167723169318480 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6099856986456562798, guid: 7e969a3e7f31b4e58a470d234ddeae81, type: 3}
