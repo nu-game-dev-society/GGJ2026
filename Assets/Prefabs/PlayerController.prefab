@@ -94,6 +94,7 @@ MonoBehaviour:
   controller: {fileID: 6167410110698181940}
   input: {fileID: 5083259849083502680}
   markerRenderer: {fileID: 7531692700580125332}
+  stunParticles: {fileID: 3384145675939476479}
   playerColor: {r: 0, g: 0, b: 0, a: 0}
   OnPlayerKilled:
     m_PersistentCalls:
@@ -226,7 +227,31 @@ MonoBehaviour:
   <StunDuration>k__BackingField: 3
   onHealthDepleted:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 992872790029498822}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: Stun
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 3
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3907916193161849882}
+        m_TargetAssemblyTypeName: MaskController, Assembly-CSharp
+        m_MethodName: RemoveMask
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 3
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   <Health>k__BackingField: 0
   <LastHitReceivedTime>k__BackingField: 0
 --- !u!1 &2331426152024093782
@@ -778,6 +803,11 @@ GameObject:
 --- !u!4 &2211073112154738604 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6337182338829424018, guid: 7e969a3e7f31b4e58a470d234ddeae81, type: 3}
+  m_PrefabInstance: {fileID: 5286520648249121342}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &3384145675939476479 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7470231579032545729, guid: 7e969a3e7f31b4e58a470d234ddeae81, type: 3}
   m_PrefabInstance: {fileID: 5286520648249121342}
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &6112616524437261588 stripped

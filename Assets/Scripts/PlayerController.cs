@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private CharacterController controller;
     [SerializeField] private PlayerInput input;
     [SerializeField] private Renderer markerRenderer;
+    [SerializeField] private ParticleSystem stunParticles;
     #endregion
 
     private Vector2 moveInput;
@@ -115,6 +116,8 @@ public class PlayerController : MonoBehaviour
         if (isStunned && Time.time >= stunEndTime)
         {
             isStunned = false;
+            stunParticles.Stop();
+            animator.SetBool("Stunned", false);
         }
 
         // Clear roller reference at start of frame
@@ -261,6 +264,8 @@ public class PlayerController : MonoBehaviour
     {
         isStunned = true;
         stunEndTime = Time.time + duration;
+        stunParticles.Play();
+        animator.SetBool("Stunned", true);
         Debug.Log($"{name} stunned for {duration} seconds");
     }
 
