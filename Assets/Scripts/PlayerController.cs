@@ -58,7 +58,6 @@ public class PlayerController : MonoBehaviour
     private void OnMovePerformed(CallbackContext ctx)
     {
         moveInput = ctx.ReadValue<Vector2>();
-        Debug.Log("Move performed" + moveInput);
     }
 
     private void OnMoveCancelled(CallbackContext ctx)
