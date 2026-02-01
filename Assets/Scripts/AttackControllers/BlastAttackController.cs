@@ -47,11 +47,6 @@ public class BlastAttackController : AttackController
 
     private void FireProjectile()
     {
-        // if (!CanAttack())
-        // {
-        //     return;
-        // }
-
         ResetProjectile();
 
         Vector3 direction = transform.forward;
