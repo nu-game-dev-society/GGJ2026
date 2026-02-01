@@ -32,6 +32,7 @@ public class BlastAttackController : AttackController
     private void OnDisable()
     {
         lineRenderer.enabled = false;
+        lineRenderer.SetPositions(new Vector3[] { });
     }
 
     protected override void DetectAndHitEnemies()
